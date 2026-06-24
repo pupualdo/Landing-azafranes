@@ -181,20 +181,22 @@ html {
 }
 
 /* ── Explicit font assignments ──────────────────────────────────── */
-/* Directly set CSS custom properties to bypass Tailwind variable chain */
-:root {
-  --font-heading: "IM Fell English", "IM Fell English Fallback", serif;
-  --font-serif: "Cormorant Garamond", "Cormorant Garamond Fallback", serif;
-  --font-sans: "Inter", "Inter Fallback", sans-serif;
+/* Direct font-family on elements — bypass var() chain entirely */
+
+/* IM Fell English — headings and titles */
+h1, h2, h3, h4, h5, h6,
+[class*="font-[var(--font-heading)]"] {
+  font-family: "IM Fell English", "IM Fell English Fallback", serif !important;
 }
 
-/* Force on semantic elements */
-html {
-  font-family: var(--font-sans);
+/* Cormorant Garamond — body text, subtitles, quotes */
+[class*="font-[var(--font-serif)]"],
+.font-serif-force {
+  font-family: "Cormorant Garamond", "Cormorant Garamond Fallback", serif !important;
 }
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading) !important;
-}
-body {
-  font-family: var(--font-sans);
+
+/* Inter — UI, labels, forms */
+body,
+[class*="font-[var(--font-sans)]"] {
+  font-family: "Inter", "Inter Fallback", sans-serif !important;
 }
