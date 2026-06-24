@@ -179,3 +179,25 @@ html {
 .parallax-layer {
   will-change: transform;
 }
+
+/* ── Explicit font assignments ──────────────────────────────────── */
+/* Ensures fonts render correctly regardless of Tailwind/Next.js variable chain */
+html {
+  font-family: "Inter", "Inter Fallback", sans-serif;
+}
+/* Headings — IM Fell English */
+h1, h2, h3, h4, h5, h6 {
+  font-family: "IM Fell English", "IM Fell English Fallback", serif !important;
+}
+/* Any element with --font-heading via arbitrary value */
+[class*="font-\\[var\\(--font-heading\\)\\]"] {
+  font-family: "IM Fell English", "IM Fell English Fallback", serif !important;
+}
+/* Cormorant Garamond */
+[class*="font-\\[var\\(--font-serif\\)\\]"] {
+  font-family: "Cormorant Garamond", "Cormorant Garamond Fallback", serif !important;
+}
+/* Inter / sans */
+[class*="font-\\[var\\(--font-sans\\)\\]"] {
+  font-family: "Inter", "Inter Fallback", sans-serif !important;
+}

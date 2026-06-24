@@ -55,7 +55,7 @@ export function Tour360Button({
             <path d="M2 12h20" stroke="currentColor" strokeWidth="1.5" />
           </svg>
         </span>
-        <span>Tour 360°</span>
+        <span className="font-[var(--font-heading)] tracking-widest">Tour 360°</span>
         <svg viewBox="0 0 16 16" fill="none" className={`w-4 h-4 ${iconColor}`}>
           <path d="M2 8h10M8 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
@@ -78,7 +78,7 @@ export function Tour360Button({
             <path d="M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20" stroke="currentColor" strokeWidth="1.5" />
           </svg>
         </span>
-        {label}
+        <span className="font-[var(--font-heading)] tracking-widest">{label}</span>
         <svg viewBox="0 0 16 16" fill="none" className={`w-4 h-4 ${iconColor}`}>
           <path d="M2 8h10M8 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
@@ -101,7 +101,7 @@ export function Tour360Button({
             <path d="M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20" stroke="currentColor" strokeWidth="1.5" />
           </svg>
         </span>
-        {label}
+        <span className="font-[var(--font-heading)] tracking-widest">{label}</span>
         <svg viewBox="0 0 16 16" fill="none" className={`w-3.5 h-3.5 ${iconColor}`}>
           <path d="M2 8h10M8 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
@@ -135,7 +135,7 @@ export function Tour360Button({
           <path d="M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20" stroke="currentColor" strokeWidth="1.5" />
         </svg>
       </span>
-      <span>Tour 360°</span>
+      <span className="font-[var(--font-heading)] tracking-widest">Tour 360°</span>
       <svg viewBox="0 0 16 16" fill="none" className="w-3.5 h-3.5 text-white/50 group-hover:text-[#050505]/50 transition-colors duration-300">
         <path d="M10 3l4 4-4 4M14 7H2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>

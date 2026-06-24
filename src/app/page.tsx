@@ -15,10 +15,10 @@ export default function Home() {
       <ConceptoSection />
       <ExperienciaSection />
       <GaleriaSection />
-      <UbicacionSection />
       <MasterplanSection />
       <ParcelasSection />
       <InversionSection />
+      <UbicacionSection />
       <CtaSection />
     </>
   );
