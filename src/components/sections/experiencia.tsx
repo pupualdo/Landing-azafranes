@@ -85,9 +85,9 @@ function Panel({
         }}
       />
 
-      {/* Dark overlay - stronger at edges */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/70 via-[#050505]/30 to-[#050505]/70" />
-      <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/40 via-transparent to-[#050505]/40" />
+      {/* Dark overlay - stronger for text readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/85 via-[#050505]/45 to-[#050505]/85" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/50 via-transparent to-[#050505]/50" />
 
       {/* Content */}
       <motion.div
@@ -116,6 +116,7 @@ function Panel({
             viewport={{ once: true }}
             transition={{ duration: 1, delay: 0.2, ease: [0.77, 0, 0.18, 1] }}
             className="font-[var(--font-heading)] text-3xl md:text-5xl lg:text-6xl text-[#f5f0e8] leading-none"
+            style={{ textShadow: "0 2px 12px rgba(0,0,0,0.85), 0 0 40px rgba(0,0,0,0.5), 0 0 4px rgba(0,0,0,0.6)" }}
           >
             {panel.subtitle}
           </motion.h2>
@@ -136,6 +137,7 @@ function Panel({
             viewport={{ once: true }}
             transition={{ duration: 1, delay: 0.45, ease: [0.77, 0, 0.18, 1] }}
             className="font-[var(--font-serif)] text-lg md:text-2xl lg:text-3xl italic leading-relaxed text-[#f5f0e8]/80 max-w-xl mx-auto"
+            style={{ textShadow: "0 1px 8px rgba(0,0,0,0.8), 0 0 24px rgba(0,0,0,0.4)" }}
           >
             &ldquo;{panel.text}&rdquo;
           </motion.p>
@@ -197,7 +199,7 @@ export function ExperienciaSection() {
           <span className="block text-xs tracking-[0.3em] uppercase text-[#8a8580]/60 font-[var(--font-sans)] mb-6">
             La experiencia
           </span>
-          <h2 className="font-[var(--font-heading)] text-5xl md:text-7xl lg:text-8xl text-[#f5f0e8] leading-none mb-4">
+          <h2 className="font-[var(--font-heading)] text-5xl md:text-7xl lg:text-8xl text-[#f5f0e8] leading-none mb-4" style={{ textShadow: "0 2px 16px rgba(0,0,0,0.9), 0 0 50px rgba(0,0,0,0.6)" }}>
             Habitar el sur
           </h2>
           <div className="w-12 h-px bg-gradient-to-r from-transparent via-[#f5f0e8]/30 to-transparent mx-auto my-6" />

@@ -54,7 +54,7 @@ export function HeroSection() {
           transition={{ duration: 1.5, ease: [0.77, 0, 0.18, 1], delay: 1.2 }}
           className="mt-12 md:mt-16"
         >
-          <p className="text-base md:text-xl lg:text-2xl font-[var(--font-serif)] font-light italic text-[#f5f0e8]/50 max-w-2xl leading-relaxed tracking-wide">
+          <p className="text-base md:text-xl lg:text-2xl font-[var(--font-serif)] font-light italic text-[#f5f0e8]/50 max-w-2xl leading-relaxed tracking-wide" style={{ textShadow: "0 1px 6px rgba(0,0,0,0.7)" }}>
             Un refugio entre bosque, niebla y mar. Parcelas en venta en Chiloé.
           </p>
         </motion.div>
