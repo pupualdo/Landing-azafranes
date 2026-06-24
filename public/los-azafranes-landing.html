@@ -1,0 +1,569 @@
+<!doctype html>
+<html lang="es"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Proyecto Azafranes — Parcelas en Chiloé</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English&amp;family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&amp;display=swap" rel="stylesheet">
+  <style>
+    /* ═══════════════ TOKENS ═══════════════ */
+    :root {
+      --bg:      oklch(7% 0.005 95);
+      --surface: oklch(11% 0.005 95);
+      --fg:      oklch(95% 0.006 85);
+      --muted:   oklch(55% 0.008 85);
+      --border:  oklch(24% 0.005 85);
+      --accent:  oklch(65% 0.15 75);
+
+      --font-display: 'IM Fell English', 'Iowan Old Style', Georgia, serif;
+      --font-serif:   'Cormorant Garamond', Georgia, serif;
+      --font-sans:    -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+
+      --max-w: 76rem;
+      --ease: cubic-bezier(0.77, 0, 0.18, 1);
+    }
+
+    /* ═══════════════ RESET ═══════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-serif);
+      font-size: clamp(1rem, 1.8vw, 1.125rem);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    ::selection { background: oklch(65% 0.15 75 / 0.25); color: var(--fg); }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+    .container { width: min(var(--max-w), 100% - 3rem); margin-inline: auto; }
+    @media (min-width: 768px) { .container { width: min(var(--max-w), 100% - 5rem); } }
+    @media (min-width: 1024px) { .container { width: min(var(--max-w), 100% - 8rem); } }
+
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+    /* ═══════════════ NAVBAR ═══════════════ */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 5rem; display: flex; align-items: center;
+      transition: background 0.5s var(--ease), border-color 0.5s var(--ease);
+    }
+    .navbar.scrolled {
+      background: oklch(7% 0.005 95 / 0.85);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .navbar-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      width: min(var(--max-w), 100% - 3rem); margin-inline: auto;
+    }
+    @media (min-width: 768px) { .navbar-inner { width: min(var(--max-w), 100% - 5rem); } }
+    @media (min-width: 1024px) { .navbar-inner { width: min(var(--max-w), 100% - 8rem); } }
+
+    .nav-logo { font-family: var(--font-display); font-size: 1.35rem; letter-spacing: 0.04em; color: var(--fg); transition: color 0.3s; }
+    .nav-logo:hover { color: var(--accent); }
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links { display: none; gap: 2rem; align-items: center; }
+    @media (min-width: 768px) { .nav-links { display: flex; } }
+    .nav-links a { font-family: var(--font-sans); font-size: 0.6875rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); transition: color 0.3s; }
+    .nav-links a:hover { color: var(--fg); }
+
+    .nav-toggle { display: flex; align-items: center; justify-content: center; width: 2.5rem; height: 2.5rem; background: none; border: none; cursor: pointer; color: var(--fg); }
+    @media (min-width: 768px) { .nav-toggle { display: none; } }
+
+    .mobile-menu { position: fixed; inset: 0; z-index: 99; background: var(--bg); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; transform: translateX(100%); transition: transform 0.4s var(--ease); }
+    .mobile-menu.open { transform: translateX(0); }
+    .mobile-menu a { font-family: var(--font-sans); font-size: 0.8125rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); transition: color 0.3s; }
+    .mobile-menu a:hover { color: var(--fg); }
+
+    /* ═══════════════ REVEAL ANIMATION ═══════════════ */
+    .reveal { opacity: 0; transform: translateY(2.5rem); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
+
+    .section-divider { height: 1px; background: linear-gradient(to right, transparent, var(--border), transparent); }
+
+    /* ═══════════════ HERO ═══════════════ */
+    .hero { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 6rem 1.5rem 4rem; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; z-index: 0; background: radial-gradient(ellipse 70% 60% at 50% 35%, oklch(30% 0.03 150 / 0.15), transparent), radial-gradient(ellipse 40% 50% at 80% 70%, oklch(20% 0.02 100 / 0.1), transparent), var(--bg); }
+    .hero-bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, var(--bg) 0%, transparent 25%, transparent 75%, var(--bg) 100%); }
+    .hero-video-wrap { position: absolute; inset: 0; z-index: -1; overflow: hidden; }
+    .hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .hero-video-wrap::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, var(--bg) 0%, oklch(7% 0.005 95 / 0.35) 30%, oklch(7% 0.005 95 / 0.6) 70%, var(--bg) 100%); }
+    .hero-content { position: relative; z-index: 1; max-width: 44rem; }
+    .hero-eyebrow { font-family: var(--font-sans); font-size: 0.625rem; letter-spacing: 0.32em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; }
+    .hero-title { font-family: var(--font-display); font-size: clamp(2.5rem, 8vw, 6rem); line-height: 0.95; letter-spacing: -0.015em; color: var(--fg); margin-bottom: 1.25rem; }
+    .hero-title em { font-family: var(--font-serif); font-style: italic; font-weight: 300; color: var(--muted); }
+    .hero-sub { font-family: var(--font-serif); font-size: clamp(1rem, 2.5vw, 1.35rem); font-style: italic; font-weight: 300; color: oklch(95% 0.006 85 / 0.45); max-width: 34ch; margin-inline: auto; margin-bottom: 2.5rem; }
+    .hero-cta { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-sans); font-size: 0.6875rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--fg); border: 1px solid oklch(95% 0.006 85 / 0.15); padding: 0.75rem 2rem; transition: all 0.4s var(--ease); }
+    .hero-cta:hover { background: oklch(95% 0.006 85 / 0.06); border-color: oklch(95% 0.006 85 / 0.3); color: var(--accent); }
+    .hero-scroll { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); z-index: 1; width: 1px; height: 3.5rem; background: linear-gradient(to bottom, oklch(95% 0.006 85 / 0.2), transparent); }
+
+    /* ═══════════════ SECTION TITLES ═══════════════ */
+    .sec-eyebrow { font-family: var(--font-sans); font-size: 0.625rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem; }
+    .sec-title { font-family: var(--font-display); font-size: clamp(2rem, 6vw, 4rem); line-height: 1; letter-spacing: -0.01em; color: var(--fg); }
+    .sec-title em { font-family: var(--font-serif); font-style: italic; font-weight: 300; color: var(--muted); }
+    .sec-dek { font-family: var(--font-serif); font-size: clamp(1.05rem, 2vw, 1.25rem); font-style: italic; font-weight: 300; color: var(--muted); margin-top: 0.75rem; max-width: 44ch; }
+
+    /* ═══════════════ TWO-COLUMN ═══════════════ */
+    .grid-2 { display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: center; }
+    @media (min-width: 1024px) { .grid-2 { grid-template-columns: 7fr 5fr; gap: 5rem; } }
+
+    .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+    .stat-num { font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2rem); color: var(--fg); line-height: 1; }
+    .stat-label { font-family: var(--font-sans); font-size: 0.625rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-top: 0.35rem; }
+    .stat-num.accent { color: var(--accent); }
+
+    .img-frame { position: relative; aspect-ratio: 3/4; overflow: hidden; border: 1px solid var(--border); }
+    .img-frame-inner { position: absolute; inset: 0; background-size: cover; background-position: center; transition: transform 0.8s var(--ease); }
+    .img-frame:hover .img-frame-inner { transform: scale(1.04); }
+    .img-frame-caption { position: absolute; bottom: 1.5rem; left: 1.5rem; right: 1.5rem; font-family: var(--font-serif); font-size: 0.8125rem; font-style: italic; color: oklch(95% 0.006 85 / 0.5); }
+
+    .ph-moss  { background: url('/assets/photos/closeups/closeup_01_moss.jpg') center/cover no-repeat; }
+    .ph-fern  { background: url('/assets/photos/closeups/closeup_02_helechos.jpg') center/cover no-repeat; }
+    .ph-light { background: url('/assets/photos/closeups/closeup_05_contraluz.jpg') center/cover no-repeat; }
+    .ph-lichen{ background: url('/assets/photos/closeups/closeup_04_liquenes.jpg') center/cover no-repeat; }
+    .ph-sky   { background: url('/assets/photos/closeups/closeup_03_cielo.jpg') center/cover no-repeat; }
+    .ph-canopy{ background: url('/assets/photos/closeups/closeup_06_copas.jpg') center/cover no-repeat; }
+
+    /* ═══════════════ EXPERIENCIA PANELS ═══════════════ */
+    .exp-panel { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 4rem 1.5rem; overflow: hidden; }
+    .exp-panel-bg { position: absolute; inset: 0; z-index: 0; }
+    .exp-panel-overlay { position: absolute; inset: 0; z-index: 1; background: linear-gradient(to bottom, var(--bg) 0%, transparent 30%, transparent 70%, var(--bg) 100%); }
+    .exp-panel-content { position: relative; z-index: 2; max-width: 36rem; }
+    .exp-panel-num { font-family: var(--font-sans); font-size: 0.625rem; letter-spacing: 0.3em; text-transform: uppercase; color: oklch(55% 0.008 85 / 0.5); margin-bottom: 1.5rem; }
+    .exp-panel-title { font-family: var(--font-display); font-size: clamp(2rem, 6vw, 4rem); line-height: 1; letter-spacing: -0.01em; color: var(--fg); margin-bottom: 1.25rem; }
+    .exp-panel-text { font-family: var(--font-serif); font-size: clamp(1.05rem, 3vw, 1.5rem); font-style: italic; font-weight: 300; line-height: 1.5; color: oklch(95% 0.006 85 / 0.7); }
+    .exp-divider { width: 3rem; height: 1px; background: linear-gradient(to right, transparent, oklch(95% 0.006 85 / 0.3), transparent); margin: 1.5rem auto; }
+
+    .mp-frame { position: relative; aspect-ratio: 4/3; overflow: hidden; background: oklch(11% 0.005 95); border: 1px solid var(--border); }
+    .mp-frame svg { width: 100%; height: 100%; }
+    .mp-grid { position: absolute; inset: 0; opacity: 0.03; background-image: linear-gradient(oklch(95% 0.006 85 / 0.4) 1px, transparent 1px), linear-gradient(90deg, oklch(95% 0.006 85 / 0.4) 1px, transparent 1px); background-size: 32px 32px; }
+
+    .cards-3 { display: grid; grid-template-columns: 1fr; gap: 1px; background: var(--border); }
+    @media (min-width: 768px) { .cards-3 { grid-template-columns: repeat(3, 1fr); } }
+    .card { background: var(--bg); padding: 2.5rem 1.75rem; display: flex; flex-direction: column; gap: 1.25rem; transition: background 0.5s; }
+    .card:hover { background: var(--surface); }
+    .card-num { font-family: var(--font-serif); font-size: 0.75rem; letter-spacing: 0.22em; color: var(--muted); }
+    .card-title { font-family: var(--font-display); font-size: clamp(1.35rem, 2vw, 1.75rem); line-height: 1.1; color: var(--fg); }
+    .card-size { font-family: var(--font-serif); font-size: 0.8125rem; font-style: italic; font-weight: 300; color: var(--muted); }
+    .card-specs { display: flex; flex-direction: column; }
+    .card-spec { display: flex; justify-content: space-between; align-items: baseline; padding: 0.6rem 0; border-bottom: 1px solid oklch(95% 0.006 85 / 0.04); }
+    .card-spec:last-child { border-bottom: 0; }
+    .card-spec-key { font-size: 0.5625rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); flex-shrink: 0; }
+    .card-spec-val { font-family: var(--font-serif); font-size: 0.75rem; font-style: italic; color: oklch(95% 0.006 85 / 0.6); text-align: right; }
+    .card-accent-dot { width: 0.375rem; height: 0.375rem; border-radius: 50%; background: var(--accent); opacity: 0; transition: opacity 0.4s; }
+    .card:hover .card-accent-dot { opacity: 1; }
+
+    .highlights { display: grid; grid-template-columns: 1fr; gap: 2.5rem; padding-top: 3rem; border-top: 1px solid var(--border); }
+    @media (min-width: 768px) { .highlights { grid-template-columns: repeat(3, 1fr); gap: 2rem; } }
+    .hl-icon { width: 2.25rem; height: 2.25rem; border-radius: 50%; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; transition: border-color 0.4s; }
+    .hl-icon svg { width: 1rem; height: 1rem; color: var(--muted); transition: color 0.4s; }
+    .hl-item:hover .hl-icon { border-color: oklch(95% 0.006 85 / 0.25); }
+    .hl-item:hover .hl-icon svg { color: var(--accent); }
+    .hl-title { font-family: var(--font-display); font-size: 0.8125rem; letter-spacing: 0.12em; text-transform: uppercase; color: oklch(95% 0.006 85 / 0.75); margin-bottom: 0.5rem; }
+    .hl-desc { font-family: var(--font-serif); font-size: 0.9375rem; line-height: 1.55; color: oklch(95% 0.006 85 / 0.45); transition: color 0.4s; }
+    .hl-item:hover .hl-desc { color: oklch(95% 0.006 85 / 0.65); }
+
+    .bq { position: relative; padding-left: 1.75rem; border-left: 1px solid oklch(95% 0.006 85 / 0.12); }
+    .bq p { font-family: var(--font-serif); font-size: clamp(1.15rem, 3vw, 1.65rem); font-style: italic; font-weight: 300; line-height: 1.45; color: oklch(95% 0.006 85 / 0.6); }
+    .bq footer { font-family: var(--font-sans); font-size: 0.625rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-top: 1rem; }
+
+    .form-group { margin-bottom: 1.25rem; }
+    .form-label { display: block; font-family: var(--font-sans); font-size: 0.625rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+    .form-input, .form-textarea { width: 100%; padding: 0.7rem 0; background: transparent; border: none; border-bottom: 1px solid var(--border); color: var(--fg); font-family: var(--font-serif); font-size: 1rem; transition: border-color 0.3s; outline: none; }
+    .form-input:focus, .form-textarea:focus { border-color: var(--accent); }
+    .form-input::placeholder, .form-textarea::placeholder { color: oklch(55% 0.008 85 / 0.35); }
+    .form-textarea { resize: vertical; min-height: 5rem; }
+    .form-submit { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-sans); font-size: 0.6875rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg); background: transparent; border: 1px solid oklch(95% 0.006 85 / 0.15); padding: 0.75rem 2rem; cursor: pointer; transition: all 0.4s var(--ease); margin-top: 0.5rem; }
+    .form-submit:hover { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+
+    /* Tour 360 floating */
+    .tour-360 { position: fixed; bottom: 1.5rem; left: 1.5rem; z-index: 90; display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.55rem 1.25rem; background: var(--bg); border: 1px solid oklch(95% 0.006 85 / 0.25); color: var(--fg); font-family: var(--font-sans); font-size: 0.5625rem; letter-spacing: 0.18em; text-transform: uppercase; transition: all 0.4s var(--ease); }
+    .tour-360:hover { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+    .tour-360:hover svg { stroke: var(--bg); }
+    .tour-360-icon { width: 1.6rem; height: 1.6rem; border-radius: 50%; border: 1px solid oklch(95% 0.006 85 / 0.2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .tour-360:hover .tour-360-icon { border-color: var(--bg); }
+    @media (max-width: 640px) { .tour-360 { bottom: 1rem; left: 1rem; padding: 0.45rem 1rem; gap: 0.4rem; } }
+
+    .contact-quote { font-family: var(--font-serif); font-size: clamp(1.35rem, 4vw, 2.25rem); font-style: italic; font-weight: 300; line-height: 1.3; color: var(--fg); margin-bottom: 2rem; }
+    .contact-quote span { color: oklch(95% 0.006 85 / 0.7); }
+    .contact-info { display: flex; flex-direction: column; gap: 1.5rem; }
+    .contact-item-label { font-family: var(--font-sans); font-size: 0.625rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.25rem; }
+    .contact-item-val { font-family: var(--font-serif); font-size: 1.05rem; color: var(--fg); transition: color 0.3s; }
+    a.contact-item-val:hover { color: var(--accent); }
+
+    .footer { border-top: 1px solid var(--border); padding: 3rem 1.5rem; text-align: center; }
+    .footer-logo { font-family: var(--font-display); font-size: 1.25rem; letter-spacing: 0.04em; color: var(--fg); margin-bottom: 0.75rem; }
+    .footer-logo span { color: var(--accent); }
+    .footer-copy { font-family: var(--font-sans); font-size: 0.6875rem; color: oklch(55% 0.008 85 / 0.5); letter-spacing: 0.04em; }
+    .footer-sub { font-family: var(--font-sans); font-size: 0.6875rem; color: oklch(55% 0.008 85 / 0.3); letter-spacing: 0.04em; margin-top: 0.25rem; }
+
+    .icon-sm { width: 1rem; height: 1rem; flex-shrink: 0; }
+
+    .prox-list { display: flex; flex-direction: column; gap: 0.65rem; }
+    .prox-item { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+    .prox-name { font-family: var(--font-serif); font-size: 0.9375rem; font-weight: 300; color: oklch(95% 0.006 85 / 0.7); }
+    .prox-time { font-family: var(--font-serif); font-size: 0.8125rem; font-style: italic; color: oklch(95% 0.006 85 / 0.4); white-space: nowrap; }
+
+    .section { padding: 5rem 0; }
+    @media (min-width: 768px) { .section { padding: 7rem 0; } }
+    @media (min-width: 1024px) { .section { padding: 9rem 0; } }
+  </style>
+</head>
+<body>
+
+  <header class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a href="#" class="nav-logo">
+        <img src="/logo-proyecto-azafranes.png" alt="Proyecto Azafranes" style="height:2.5rem;width:auto;">
+      </a>
+      <nav class="nav-links">
+        <a href="#concepto">Concepto</a>
+        <a href="#experiencia">Experiencia</a>
+        <a href="#ubicacion">Ubicación</a>
+        <a href="#masterplan">Masterplan</a>
+        <a href="#parcelas">Parcelas</a>
+        <a href="#inversion">Inversión</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="Menú">
+        <svg width="20" height="14" viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="1.5">
+          <line x1="0" y1="1" x2="20" y2="1"></line><line x1="0" y1="7" x2="20" y2="7"></line><line x1="0" y1="13" x2="20" y2="13"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#concepto">Concepto</a>
+    <a href="#experiencia">Experiencia</a>
+    <a href="#ubicacion">Ubicación</a>
+    <a href="#masterplan">Masterplan</a>
+    <a href="#parcelas">Parcelas</a>
+    <a href="#inversion">Inversión</a>
+    <a href="#contacto">Contacto</a>
+  </div>
+
+  <section class="hero" data-od-id="hero">
+    <div class="hero-video-wrap">
+      <video autoplay="" muted="" loop="" playsinline="" preload="auto" class="hero-video" poster="/assets/photos/closeups/closeup_01_moss.jpg">
+        <source src="/assets/videos/DJI_0678_bg.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="hero-bg"></div>
+    <div class="hero-content reveal">
+      <!-- Logo original SVG: "Á" grande + azafranes + Chiloé -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:0.5rem;">
+        <img src="/logo-proyecto-azafranes.png" alt="Proyecto Azafranes" style="width:clamp(14rem,32vw,20rem);height:auto;margin-bottom:0.5rem;">
+      </div>
+      <p class="hero-sub reveal reveal-delay-2">Un refugio entre bosque, niebla y mar. Parcelas en venta en Chiloé.</p>
+      <a href="#concepto" class="hero-cta reveal reveal-delay-3">
+        Descubrir el proyecto
+        <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"></path></svg>
+      </a>
+    </div>
+    <div class="hero-scroll"></div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section" id="concepto" data-od-id="concepto">
+    <div class="container">
+      <div class="grid-2">
+        <div>
+          <p class="sec-eyebrow reveal">El proyecto</p>
+          <h2 class="sec-title reveal reveal-delay-1">Concepto</h2>
+          <p class="sec-dek reveal reveal-delay-1">Donde el sur encuentra su voz más íntima.</p>
+          <div style="margin-top:2.5rem;display:flex;flex-direction:column;gap:1.5rem;">
+            <p class="reveal reveal-delay-2" style="color:oklch(95% 0.006 85 / 0.7);line-height:1.65;">En el corazón de la Isla Grande de Chiloé, donde se impone un bosque ancestral nativo rodeado de matices de verdes intensos, nace Proyecto Azafranes. Veintiséis hectáreas de parcelas en venta en Chiloé que no se domestican, se habitan. Un paisaje de ensueño donde compartir en familia otra bella puesta de sol en la parcela propia.</p>
+            <p class="reveal reveal-delay-3" style="color:oklch(95% 0.006 85 / 0.7);line-height:1.65;">Setenta y cinco terrenos en venta en Chiloé, cada uno distinto. Cada una ha sido trazada respetando la topografía original. El proyecto cuenta con caminos de ripio que permiten el acceso directo a cada parcela en vehículo. La arquitectura se integra sin imponerse: madera, piedra, luz — materias que el sur entiende.</p>
+            <p class="reveal reveal-delay-4" style="color:oklch(95% 0.006 85 / 0.7);line-height:1.65;">Aquí el tiempo se mide en estaciones, no en horas. Canelo, arrayán, coihue, ulmo y lenga custodian el silencio. Zorzales, bandurrias, loros y pudúes habitan el sotobosque. Comprar terreno en Chiloé de bosque nativo protector no es adquirir tierra: es resguardar un patrimonio de aire limpio, de vida lenta, de naturaleza intacta.</p>
+          </div>
+          <div class="stat-row reveal reveal-delay-5">
+            <div><p class="stat-num accent">26</p><p class="stat-label">Hectáreas</p></div>
+            <div><p class="stat-num">75</p><p class="stat-label">Parcelas</p></div>
+            <div><p class="stat-num">Bosque</p><p class="stat-label">Nativo</p></div>
+          </div>
+        </div>
+        <div class="reveal reveal-delay-2">
+          <div class="img-frame"><div class="img-frame-inner ph-moss"></div><div class="img-frame-caption">Bosque nativo de Chiloé</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section id="experiencia" data-od-id="experiencia">
+    <div class="exp-panel"><div class="exp-panel-bg ph-fern"></div><div class="exp-panel-overlay"></div>
+      <div class="exp-panel-content reveal">
+        <p class="sec-eyebrow" style="color:oklch(55% 0.008 85 / 0.5);">La experiencia</p>
+        <h2 class="sec-title" style="margin-bottom:0.75rem;">Habitar el sur</h2>
+        <div class="exp-divider"></div>
+        <p style="font-family:var(--font-serif);font-size:1.15rem;font-style:italic;color:var(--muted);">Cinco instantes que definen un territorio</p>
+      </div>
+    </div>
+    <div class="exp-panel"><div class="exp-panel-bg ph-moss"></div><div class="exp-panel-overlay"></div>
+      <div class="exp-panel-content reveal"><p class="exp-panel-num">01</p><h3 class="exp-panel-title">Bosque húmedo</h3><div class="exp-divider"></div><p class="exp-panel-text">“La lluvia despierta el musgo milenario. Cada hoja guarda un murmullo que solo el silencio entiende.”</p></div>
+    </div>
+    <div class="exp-panel"><div class="exp-panel-bg ph-light"></div><div class="exp-panel-overlay"></div>
+      <div class="exp-panel-content reveal"><p class="exp-panel-num">02</p><h3 class="exp-panel-title">Mañanas con niebla</h3><div class="exp-divider"></div><p class="exp-panel-text">“El mundo se desdibuja entre vapores. No hay prisa donde la bruma esculpe el horizonte.”</p></div>
+    </div>
+    <div class="exp-panel"><div class="exp-panel-bg ph-lichen"></div><div class="exp-panel-overlay"></div>
+      <div class="exp-panel-content reveal"><p class="exp-panel-num">03</p><h3 class="exp-panel-title">Fuego y madera</h3><div class="exp-divider"></div><p class="exp-panel-text">“La lumbre baila contra la noche austral. La madera cruje historias que el viento no olvida.”</p></div>
+    </div>
+    <div class="exp-panel"><div class="exp-panel-bg ph-sky"></div><div class="exp-panel-overlay"></div>
+      <div class="exp-panel-content reveal"><p class="exp-panel-num">04</p><h3 class="exp-panel-title">Mar y aves</h3><div class="exp-divider"></div><p class="exp-panel-text">“El mar respira al ritmo de las gaviotas. Más allá de la orilla, solo existe el azul infinito.”</p></div>
+    </div>
+    <div class="exp-panel"><div class="exp-panel-bg ph-canopy"></div><div class="exp-panel-overlay"></div>
+      <div class="exp-panel-content reveal"><p class="exp-panel-num">05</p><h3 class="exp-panel-title">Silencio profundo</h3><div class="exp-divider"></div><p class="exp-panel-text">“Aquí el tiempo se detiene. No hay eco que no sea el latido de la tierra misma.”</p></div>
+    </div>
+    <div class="exp-panel" style="min-height:50vh;">
+      <div class="exp-panel-content reveal">
+        <div style="width:1px;height:3rem;background:linear-gradient(to bottom,oklch(95% 0.006 85 / 0.15),transparent);margin:0 auto 2rem;"></div>
+        <p style="font-family:var(--font-serif);font-size:1.15rem;font-style:italic;color:oklch(95% 0.006 85 / 0.45);">Proyecto Azafranes — un legado de silencio y naturaleza.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section" id="ubicacion" data-od-id="ubicacion">
+    <div class="container">
+      <p class="sec-eyebrow reveal">Ubicación</p>
+      <h2 class="sec-title reveal reveal-delay-1">Donde la naturaleza<br><em>se vuelve refugio</em></h2>
+      <div class="grid-2" style="margin-top:3rem;">
+        <div class="reveal reveal-delay-2">
+          <div class="mp-frame" style="aspect-ratio:4/3;min-height:320px;">
+            <div class="mp-grid"></div>
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
+              <div style="position:relative;"><span style="display:block;width:1.25rem;height:1.25rem;border-radius:50%;background:var(--accent);opacity:0.7;box-shadow:0 0 24px var(--accent);"></span><span style="position:absolute;inset:-4px;border-radius:50%;border:1px solid var(--accent);opacity:0.3;animation:pulse 2.5s ease-out infinite;"></span></div>
+              <div style="font-family:var(--font-sans);font-size:0.5625rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);">Sector El Prado</div>
+            </div>
+            <div style="position:absolute;bottom:1rem;left:1rem;right:1rem;display:flex;justify-content:space-between;font-family:var(--font-sans);font-size:0.5625rem;letter-spacing:0.14em;text-transform:uppercase;color:oklch(55% 0.008 85 / 0.4);"><span>Chiloé — Archipiélago</span><span>Lat. 42° S</span></div>
+          </div>
+        </div>
+        <div class="reveal reveal-delay-3" style="display:flex;flex-direction:column;gap:2rem;">
+          <div><h3 style="font-family:var(--font-display);font-size:1.35rem;color:var(--fg);margin-bottom:0.25rem;">Sector El Prado</h3><p style="font-family:var(--font-serif);font-style:italic;color:oklch(95% 0.006 85 / 0.5);">Parcelas cerca de Dalcahue, Chiloé</p></div>
+          <div style="width:2rem;height:1px;background:var(--border);"></div>
+          <div><p class="sec-eyebrow" style="margin-bottom:0.75rem;">Cercanía</p>
+            <div class="prox-list">
+              <div class="prox-item"><span class="prox-name">Aeropuerto de Castro</span><span class="prox-time">15 min</span></div>
+              <div class="prox-item"><span class="prox-name">Dalcahue</span><span class="prox-time">20 min</span></div>
+              <div class="prox-item"><span class="prox-name">Castro</span><span class="prox-time">30 min</span></div>
+              <div class="prox-item"><span class="prox-name">Curaco de Vélez</span><span class="prox-time">25 min</span></div>
+              <div class="prox-item"><span class="prox-name">Quemchi</span><span class="prox-time">30 min</span></div>
+            </div>
+          </div>
+          <div style="width:2rem;height:1px;background:var(--border);"></div>
+          <p style="font-family:var(--font-serif);font-style:italic;color:oklch(95% 0.006 85 / 0.5);font-size:0.9375rem;line-height:1.6;">Entorno natural protegido. Terrenos en la Isla de Chiloé con bosque nativo, humedales y vistas abiertas al mar interior. Un territorio donde el paisaje permanece intacto.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section" id="masterplan" data-od-id="masterplan">
+    <div class="container">
+      <div class="grid-2">
+        <div class="reveal">
+          <div class="mp-frame">
+            <div class="mp-grid"></div>
+            <svg viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" style="position:relative;z-index:1;">
+              <path d="M80 80 C120 40, 300 30, 500 50 C650 65, 740 100, 760 200 C780 320, 770 430, 720 500 C670 560, 500 580, 300 570 C150 560, 60 520, 40 420 C20 320, 30 150, 80 80Z" stroke="oklch(95% 0.006 85 / 0.12)" stroke-width="1" fill="none"></path>
+              <ellipse cx="180" cy="150" rx="90" ry="60" fill="oklch(40% 0.06 140 / 0.08)" stroke="oklch(40% 0.06 140 / 0.18)" stroke-width="0.5" transform="rotate(-15, 180, 150)"></ellipse>
+              <text x="180" y="148" text-anchor="middle" fill="oklch(40% 0.06 140 / 0.25)" font-size="8" font-family="serif" font-style="italic" letter-spacing="2">Bosque Nativo</text>
+              <ellipse cx="500" cy="460" rx="110" ry="55" fill="oklch(35% 0.05 220 / 0.08)" stroke="oklch(35% 0.05 220 / 0.18)" stroke-width="0.5" transform="rotate(8, 500, 460)"></ellipse>
+              <text x="500" y="458" text-anchor="middle" fill="oklch(35% 0.05 220 / 0.25)" font-size="8" font-family="serif" font-style="italic" letter-spacing="2">Humedal</text>
+              <ellipse cx="680" cy="320" rx="60" ry="80" fill="oklch(60% 0.06 80 / 0.05)" stroke="oklch(60% 0.06 80 / 0.15)" stroke-width="0.5"></ellipse>
+              <text x="680" y="318" text-anchor="middle" fill="oklch(60% 0.06 80 / 0.2)" font-size="8" font-family="serif" font-style="italic" letter-spacing="2">Pradera</text>
+              <path d="M100 520 C180 480, 220 400, 260 340 C300 280, 320 250, 360 220 C400 190, 440 180, 480 200 C520 220, 540 260, 560 300" stroke="oklch(95% 0.006 85 / 0.1)" stroke-width="1" stroke-dasharray="4 4" fill="none"></path>
+              <path d="M360 220 C340 180, 310 140, 280 120 C250 100, 220 90, 180 100" stroke="oklch(95% 0.006 85 / 0.06)" stroke-width="0.8" stroke-dasharray="3 5" fill="none"></path>
+              <path d="M480 200 C530 180, 580 160, 620 170 C660 180, 690 210, 700 250" stroke="oklch(95% 0.006 85 / 0.06)" stroke-width="0.8" stroke-dasharray="3 5" fill="none"></path>
+              <circle cx="330" cy="300" r="18" stroke="oklch(95% 0.006 85 / 0.15)" stroke-width="0.5" fill="oklch(95% 0.006 85 / 0.03)"></circle><text x="330" y="305" text-anchor="middle" fill="oklch(95% 0.006 85 / 0.3)" font-size="11" font-family="sans-serif" font-weight="300" letter-spacing="1">01</text>
+              <circle cx="450" cy="280" r="18" stroke="oklch(95% 0.006 85 / 0.15)" stroke-width="0.5" fill="oklch(95% 0.006 85 / 0.03)"></circle><text x="450" y="285" text-anchor="middle" fill="oklch(95% 0.006 85 / 0.3)" font-size="11" font-family="sans-serif" font-weight="300" letter-spacing="1">02</text>
+              <circle cx="550" cy="340" r="18" stroke="oklch(95% 0.006 85 / 0.15)" stroke-width="0.5" fill="oklch(95% 0.006 85 / 0.03)"></circle><text x="550" y="345" text-anchor="middle" fill="oklch(95% 0.006 85 / 0.3)" font-size="11" font-family="sans-serif" font-weight="300" letter-spacing="1">03</text>
+              <circle cx="230" cy="220" r="16" stroke="oklch(95% 0.006 85 / 0.15)" stroke-width="0.5" fill="oklch(95% 0.006 85 / 0.03)"></circle><text x="230" y="225" text-anchor="middle" fill="oklch(95% 0.006 85 / 0.3)" font-size="10" font-family="sans-serif" font-weight="300" letter-spacing="1">04</text>
+              <circle cx="600" cy="230" r="16" stroke="oklch(95% 0.006 85 / 0.15)" stroke-width="0.5" fill="oklch(95% 0.006 85 / 0.03)"></circle><text x="600" y="235" text-anchor="middle" fill="oklch(95% 0.006 85 / 0.3)" font-size="10" font-family="sans-serif" font-weight="300" letter-spacing="1">05</text>
+              <circle cx="420" cy="400" r="16" stroke="oklch(95% 0.006 85 / 0.15)" stroke-width="0.5" fill="oklch(95% 0.006 85 / 0.03)"></circle><text x="420" y="405" text-anchor="middle" fill="oklch(95% 0.006 85 / 0.3)" font-size="10" font-family="sans-serif" font-weight="300" letter-spacing="1">06</text>
+              <g transform="translate(730, 72)"><line x1="0" y1="18" x2="0" y2="0" stroke="oklch(95% 0.006 85 / 0.2)" stroke-width="0.8"></line><polygon points="0,0 -4,8 4,8" fill="oklch(95% 0.006 85 / 0.2)"></polygon><text x="0" y="30" text-anchor="middle" fill="oklch(95% 0.006 85 / 0.2)" font-size="7" font-family="sans-serif" font-weight="300" letter-spacing="2">N</text></g>
+              <g transform="translate(100, 520)"><path d="M-6,0 L-2,-6 L2,-6 L6,0 L2,6 L-2,6Z" stroke="oklch(95% 0.006 85 / 0.12)" stroke-width="0.5" fill="oklch(95% 0.006 85 / 0.02)"></path><text x="0" y="16" text-anchor="middle" fill="oklch(95% 0.006 85 / 0.12)" font-size="6" font-family="sans-serif" letter-spacing="1">ACCESO</text></g>
+            </svg>
+          </div>
+        </div>
+        <div class="reveal reveal-delay-1">
+          <p class="sec-eyebrow">El plano</p>
+          <h2 class="sec-title">Masterplan</h2>
+          <p class="sec-dek">Un territorio trazado por la topografía misma.</p>
+          <div style="margin-top:2rem;display:flex;flex-direction:column;gap:1.25rem;">
+            <p style="color:oklch(95% 0.006 85 / 0.7);line-height:1.6;">El masterplan de Proyecto Azafranes no se impuso sobre el paisaje: emergió de él. Cada sector fue delimitado siguiendo las curvas de nivel, los claros naturales del bosque y la dirección de los vientos predominantes. No hay dos parcelas idénticas, porque la tierra no se repite.</p>
+            <p style="color:oklch(95% 0.006 85 / 0.7);line-height:1.6;">Seis sectores articulan las 26 hectáreas, conectados por una red de caminos interiores que serpentean respetando la pendiente natural. Las áreas de bosque nativo, humedal y pradera abierta actúan como pulmones del proyecto, garantizando que más del 60% del predio permanezca como reserva natural.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section" id="parcelas" data-od-id="parcelas">
+    <div class="container">
+      <div style="max-width:34rem;margin-bottom:3rem;">
+        <p class="sec-eyebrow reveal">Las parcelas</p>
+        <h2 class="sec-title reveal reveal-delay-1">Tres umbrales al sur</h2>
+        <p class="sec-dek reveal reveal-delay-1">Parcelas de 5.000 m² en Chiloé. Porciones de tierra donde el sur se expresa sin filtro. Cada una es un mundo distinto, un umbral hacia lo esencial.</p>
+      </div>
+      <div class="cards-3 reveal reveal-delay-2">
+        <div class="card"><span class="card-num">01</span><h3 class="card-title">Bosque Norte</h3><span class="card-size">5.000 – 7.000 m²</span>
+          <div class="card-specs">
+            <div class="card-spec"><span class="card-spec-key">Orientación</span><span class="card-spec-val">Noreste, luz matinal</span></div>
+            <div class="card-spec"><span class="card-spec-key">Bosque</span><span class="card-spec-val">Lenga y coigüe centenario</span></div>
+            <div class="card-spec"><span class="card-spec-key">Vista</span><span class="card-spec-val">Mar interior</span></div>
+            <div class="card-spec"><span class="card-spec-key">Agua</span><span class="card-spec-val">Pozo disponible</span></div>
+            <div class="card-spec"><span class="card-spec-key">Luz</span><span class="card-spec-val">En proyección</span></div>
+            <div class="card-spec"><span class="card-spec-key">Acceso</span><span class="card-spec-val">Ripio consolidado</span></div>
+          </div>
+          <div class="card-accent-dot"></div>
+        </div>
+        <div class="card"><span class="card-num">02</span><h3 class="card-title">Pradera Sur</h3><span class="card-size">5.000 – 7.000 m²</span>
+          <div class="card-specs">
+            <div class="card-spec"><span class="card-spec-key">Orientación</span><span class="card-spec-val">Sur, protegida del viento</span></div>
+            <div class="card-spec"><span class="card-spec-key">Bosque</span><span class="card-spec-val">Arrayanes y tepúes</span></div>
+            <div class="card-spec"><span class="card-spec-key">Vista</span><span class="card-spec-val">Bosque nativo</span></div>
+            <div class="card-spec"><span class="card-spec-key">Agua</span><span class="card-spec-val">Vertiente natural</span></div>
+            <div class="card-spec"><span class="card-spec-key">Luz</span><span class="card-spec-val">En proyección</span></div>
+            <div class="card-spec"><span class="card-spec-key">Acceso</span><span class="card-spec-val">Ripio consolidado</span></div>
+          </div>
+          <div class="card-accent-dot"></div>
+        </div>
+        <div class="card"><span class="card-num">03</span><h3 class="card-title">Mirador del Este</h3><span class="card-size">5.000 – 7.000 m²</span>
+          <div class="card-specs">
+            <div class="card-spec"><span class="card-spec-key">Orientación</span><span class="card-spec-val">Este, amanecer al mar</span></div>
+            <div class="card-spec"><span class="card-spec-key">Bosque</span><span class="card-spec-val">Coigüe y canelo nativo</span></div>
+            <div class="card-spec"><span class="card-spec-key">Vista</span><span class="card-spec-val">Mar y humedal</span></div>
+            <div class="card-spec"><span class="card-spec-key">Agua</span><span class="card-spec-val">Pozo disponible</span></div>
+            <div class="card-spec"><span class="card-spec-key">Luz</span><span class="card-spec-val">En proyección</span></div>
+            <div class="card-spec"><span class="card-spec-key">Acceso</span><span class="card-spec-val">Ripio consolidado</span></div>
+          </div>
+          <div class="card-accent-dot"></div>
+        </div>
+      </div>
+      <p style="font-family:var(--font-serif);font-size:0.9375rem;font-style:italic;color:oklch(95% 0.006 85 / 0.4);text-align:center;max-width:32rem;margin:3rem auto 0;" class="reveal reveal-delay-3">Cada parcela en Dalcahue conserva su carácter único. Las dimensiones y características pueden variar según la topografía y ubicación dentro del predio.</p>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section" id="inversion" data-od-id="inversion">
+    <div class="container">
+      <div class="grid-2">
+        <div>
+          <p class="sec-eyebrow reveal">Inversión</p>
+          <h2 class="sec-title reveal reveal-delay-1">Patrimonio<br><em>que florece</em></h2>
+          <div style="margin-top:2rem;display:flex;flex-direction:column;gap:1.25rem;">
+            <p class="reveal reveal-delay-2" style="color:oklch(95% 0.006 85 / 0.7);line-height:1.6;">Con más de 7 años de experiencia, 12 proyectos desarrollados y más de 300 terrenos vendidos, Latitudes Australes presenta Proyecto Azafranes: su décimo tercer proyecto de parcelas, ubicado en la Isla Grande de Chiloé. Si buscas terrenos en venta en Chiloé con financiamiento directo, aquí podrás hacer crecer tu familia, tu inversión y tu patrimonio.</p>
+            <p class="reveal reveal-delay-3" style="color:oklch(95% 0.006 85 / 0.7);line-height:1.6;">Comprar tierra en Chiloé no es una decisión financiera cualquiera. La isla grande del sur —con sus bosques milenarios, sus mareas y su luz horizontal— se perfila como el próximo capítulo del desarrollo inmobiliario patagónico. Pero hay algo que el mapa no muestra: los proyectos bien concebidos son extraordinariamente escasos.</p>
+            <p class="reveal reveal-delay-4" style="color:oklch(95% 0.006 85 / 0.7);line-height:1.6;">Quien invierte en terrenos en Chiloé no solo asegura un refugio para el descanso. Siembra un patrimonio que madura con las estaciones, en un rincón del mundo donde la naturaleza sigue siendo la protagonista y el ruido urbano no llega.</p>
+          </div>
+        </div>
+        <div class="reveal reveal-delay-2">
+          <div class="bq"><p>Invertir en tierra es comprar un bien que no se deprecia. En Chiloé, donde cada proyecto cuidado es una rareza, esa tierra vale más que su extensión.</p><footer>— El valor de lo escaso</footer></div>
+        </div>
+      </div>
+      <div class="highlights reveal reveal-delay-5">
+        <div class="hl-item"><div class="hl-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg></div><p class="hl-title">Destino emergente</p><p class="hl-desc">Chiloé despierta al mundo como el nuevo horizonte del sur austral. Quien llega hoy, llega primero.</p></div>
+        <div class="hl-item"><div class="hl-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 22h20L12 2z"></path></svg></div><p class="hl-title">Proyectos escasos</p><p class="hl-desc">En una isla de bosques infinitos, los proyectos bien diseñados caben en una mano. Azafranes es uno de ellos.</p></div>
+        <div class="hl-item"><div class="hl-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg></div><p class="hl-title">Plusvalía sostenida</p><p class="hl-desc">La tierra no se fabrica. En Chiloé, cada metro de naturaleza protegida vale más que el anterior.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section" id="contacto" data-od-id="contacto">
+    <div class="container">
+      <div style="text-align:center;max-width:36rem;margin:0 auto 5rem;">
+        <p class="contact-quote reveal">“Hay lugares que no se explican. <span>Se viven.</span>”</p>
+        
+      </div>
+      <div class="grid-2" id="formulario">
+        <div class="reveal">
+          <form id="contactForm" style="display:flex;flex-direction:column;">
+            <div class="form-group"><label class="form-label" for="nombre">Nombre</label><input class="form-input" id="nombre" name="nombre" type="text" placeholder="Tu nombre" required=""></div>
+            <div class="form-group"><label class="form-label" for="email">Email</label><input class="form-input" id="email" name="email" type="email" placeholder="tu@email.com" required=""></div>
+            <div class="form-group"><label class="form-label" for="telefono">Teléfono</label><input class="form-input" id="telefono" name="telefono" type="tel" placeholder="+56 9 XXXX XXXX" required=""></div>
+            <div class="form-group"><label class="form-label" for="mensaje">Mensaje</label><textarea class="form-textarea" id="mensaje" name="mensaje" rows="4" placeholder="Cuéntanos sobre tu interés..." required=""></textarea></div>
+            <button type="submit" class="form-submit">Enviar mensaje <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></button>
+          </form>
+        </div>
+        <div class="reveal reveal-delay-1">
+          <div style="margin-bottom:2.5rem;"><p style="font-family:var(--font-display);font-size:2rem;line-height:1;color:var(--fg);margin-bottom:0.3rem;">Contacto</p><p style="font-family:var(--font-serif);font-style:italic;color:var(--muted);">Estamos para escucharte</p></div>
+          <div style="width:2rem;height:1px;background:var(--border);margin-bottom:2rem;"></div>
+          <div class="contact-info">
+            <div><p class="contact-item-label">Email</p><a href="mailto:info@proyectoazafranes.cl" class="contact-item-val">info@proyectoazafranes.cl</a></div>
+            <div><p class="contact-item-label">Teléfono</p><a href="tel:+569****7527" class="contact-item-val">+56 9 8265 7527</a></div>
+          </div>
+          <p style="font-family:var(--font-serif);font-size:0.8125rem;font-style:italic;color:oklch(95% 0.006 85 / 0.35);margin-top:2.5rem;">Chiloé, Chile — Donde el sur encuentra su voz.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer" data-od-id="footer">
+    <div style="display:flex;align-items:center;justify-content:center;gap:0.75rem;margin-bottom:0.75rem;">
+      <img src="/logo-proyecto-azafranes.png" alt="Proyecto Azafranes" style="height:3rem;width:auto;">
+    </div>
+    <p class="footer-copy">© 2026 — Todos los derechos reservados</p>
+    <p class="footer-sub">Un proyecto de Latitudes Australes</p>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 60); }, { passive: true });
+    const navToggle = document.getElementById('navToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    let menuOpen = false;
+    navToggle.addEventListener('click', () => { menuOpen = !menuOpen; mobileMenu.classList.toggle('open', menuOpen); });
+    mobileMenu.querySelectorAll('a').forEach(link => { link.addEventListener('click', () => { menuOpen = false; mobileMenu.classList.remove('open'); }); });
+    const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } }); }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    document.getElementById('contactForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const btn = e.target.querySelector('button');
+      const original = btn.innerHTML;
+      btn.innerHTML = 'Enviando…'; btn.disabled = true;
+      setTimeout(() => { btn.innerHTML = '✓ Mensaje enviado'; btn.style.background = 'var(--accent)'; btn.style.borderColor = 'var(--accent)'; btn.style.color = 'var(--bg)'; e.target.reset(); setTimeout(() => { btn.innerHTML = original; btn.style.background = ''; btn.style.borderColor = ''; btn.style.color = ''; btn.disabled = false; }, 3000); }, 1200);
+    });
+    const style = document.createElement('style');
+    style.textContent = '@keyframes pulse { 0% { transform: scale(1); opacity: 0.4; } 100% { transform: scale(2.5); opacity: 0; } }';
+    document.head.appendChild(style);
+  </script>
+  <a href="https://vtour.cl/360/butalcura1/tour" target="_blank" rel="noopener noreferrer" class="tour-360" aria-label="Tour Virtual 360°">
+    <span class="tour-360-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16">
+        <circle cx="12" cy="12" r="10" stroke-dasharray="4 3"></circle>
+        <path d="M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"></path>
+        <path d="M2 12h20"></path>
+      </svg>
+    </span>
+    <span>Tour 360°</span>
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12">
+      <path d="M2 8h10M8 4l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+  </a>
+
+
+</body></html>

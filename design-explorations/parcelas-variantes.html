@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Azafranes — Parcelas · Exploración de diseño</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #050505;
+      --surface: #0a0a0a;
+      --text: #f5f0e8;
+      --muted: #8a8580;
+      --border: rgba(245,240,232,0.08);
+      --accent: #f5f0e8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 20px 24px 60px;
+    }
+    header {
+      text-align: center;
+      padding: 40px 0 32px;
+    }
+    header h1 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 400;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+    header p {
+      color: var(--muted);
+      font-style: italic;
+      margin-top: 6px;
+      font-size: 1.05rem;
+    }
+    .variant-section {
+      margin: 48px auto;
+      max-width: 1200px;
+    }
+    .variant-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: var(--muted);
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .variant-label .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--text);
+      opacity: 0.4;
+    }
+    .variant-label strong {
+      color: var(--text);
+      font-weight: 400;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+    }
+
+    /* ── VARIANT A: Conservador (mejora sutil del actual) ── */
+    .cards-a {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+    }
+    .card-a {
+      position: relative;
+      background: #080808;
+      border: 1px solid rgba(245,240,232,0.06);
+      padding: 32px 28px;
+      transition: border-color 0.5s, background 0.5s;
+    }
+    .card-a:hover {
+      border-color: rgba(245,240,232,0.18);
+      background: #0c0c0c;
+    }
+    .card-a .superficie-label {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+    }
+    .card-a .superficie-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 300;
+      margin: 4px 0 20px;
+      color: var(--text);
+    }
+    .card-a .features { list-style: none; }
+    .card-a .features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(245,240,232,0.04);
+      font-size: 0.85rem;
+      color: rgba(245,240,232,0.7);
+    }
+    .card-a .features li:last-child { border-bottom: none; }
+    .card-a .features li .ico { opacity: 0.4; font-size: 0.8rem; flex-shrink: 0; width: 16px; text-align: center; }
+    .card-a .features li .desc { 
+      font-family: 'Cormorant Garamond', serif; 
+      font-style: italic; 
+      font-size: 0.75rem; 
+      color: var(--muted); 
+      margin-top: 2px; 
+    }
+
+    /* ── VARIANT B: Editorial (serif-heavy, espaciado generoso) ── */
+    .cards-b {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1px;
+      background: rgba(245,240,232,0.06);
+    }
+    .card-b {
+      background: var(--bg);
+      padding: 48px 36px 40px;
+      transition: background 0.4s;
+    }
+    .card-b:hover { background: #080808; }
+    .card-b .num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      color: var(--muted);
+      margin-bottom: 28px;
+      display: block;
+    }
+    .card-b h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: 2.2rem;
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+    .card-b .size {
+      font-style: italic;
+      color: var(--muted);
+      font-size: 1rem;
+      margin-bottom: 28px;
+      display: block;
+    }
+    .card-b .specs {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .card-b .spec {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 0.8rem;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(245,240,232,0.04);
+    }
+    .card-b .spec .key {
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      font-size: 0.65rem;
+    }
+    .card-b .spec .val {
+      color: rgba(245,240,232,0.7);
+      text-align: right;
+      max-width: 60%;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.8rem;
+    }
+
+    /* ── VARIANT C: Minimal radical ── */
+    .cards-c {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 32px;
+    }
+    .card-c {
+      position: relative;
+      padding: 0 0 40px;
+      border-bottom: 1px solid rgba(245,240,232,0.08);
+      transition: border-color 0.5s;
+    }
+    .card-c:hover { border-color: rgba(245,240,232,0.25); }
+    .card-c .m2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 3.5rem;
+      line-height: 1;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .card-c .m2-sub {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      margin-bottom: 28px;
+      display: block;
+    }
+    .card-c .traits {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .card-c .trait {
+      font-size: 0.7rem;
+      padding: 4px 10px;
+      border: 1px solid rgba(245,240,232,0.08);
+      color: rgba(245,240,232,0.6);
+      transition: border-color 0.3s, color 0.3s;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 0.04em;
+    }
+    .card-c:hover .trait { 
+      border-color: rgba(245,240,232,0.15); 
+      color: rgba(245,240,232,0.85);
+    }
+
+    /* ── Navigation ── */
+    .nav {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      display: flex;
+      gap: 6px;
+      z-index: 100;
+    }
+    .nav a {
+      display: block;
+      padding: 8px 14px;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      text-decoration: none;
+      border: 1px solid rgba(245,240,232,0.08);
+      transition: all 0.3s;
+      background: rgba(5,5,5,0.85);
+      backdrop-filter: blur(12px);
+    }
+    .nav a:hover, .nav a.active { 
+      color: var(--text); 
+      border-color: rgba(245,240,232,0.25); 
+    }
+
+    @media (max-width: 640px) {
+      body { padding: 16px 12px 40px; }
+      .variant-section { margin: 36px auto; }
+      .cards-a, .cards-b, .cards-c { grid-template-columns: 1fr; }
+      .card-b { padding: 36px 24px 32px; }
+      .card-c .m2 { font-size: 2.6rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="#a">A · Conservador</a>
+  <a href="#b">B · Editorial</a>
+  <a href="#c">C · Radical</a>
+</nav>
+
+<header>
+  <h1>Parcelas · Exploración</h1>
+  <p>Tres enfoques para mostrar las parcelas de Azafranes</p>
+</header>
+
+<!-- ═══ VARIANTE A: Conservador ═══ -->
+<section class="variant-section" id="a">
+  <div class="variant-label"><span class="dot"></span><strong>A — Conservador</strong> &nbsp; Mejora sutil del diseño actual. Misma estructura, más espacio y hover refinado.</div>
+  <div class="cards-a">
+    <div class="card-a">
+      <span class="superficie-label">Superficie</span>
+      <div class="superficie-value">5.000 – 7.000 m²</div>
+      <ul class="features">
+        <li><span class="ico">✦</span><div><span>Bosque nativo</span><div class="desc">Lenga, coigüe y arrayanes centenarios</div></div></li>
+        <li><span class="ico">✦</span><div><span>Vistas al mar interior</span><div class="desc">Horizonte abierto desde cada parcela</div></div></li>
+        <li><span class="ico">✦</span><div><span>Caminos interiores</span><div class="desc">Accesos privados de ripio consolidado</div></div></li>
+        <li><span class="ico">✦</span><div><span>Factibilidad de agua</span><div class="desc">Captación y pozo disponible</div></div></li>
+        <li><span class="ico">✦</span><div><span>Factibilidad eléctrica</span><div class="desc">Red en etapa de proyección</div></div></li>
+        <li><span class="ico">✦</span><div><span>Topografía armónica</span><div class="desc">Suaves pendientes que abrazan el paisaje</div></div></li>
+      </ul>
+    </div>
+    <div class="card-a">
+      <span class="superficie-label">Superficie</span>
+      <div class="superficie-value">5.000 – 7.000 m²</div>
+      <ul class="features">
+        <li><span class="ico">✦</span><div><span>Bosque nativo</span><div class="desc">Lenga, coigüe y arrayanes centenarios</div></div></li>
+        <li><span class="ico">✦</span><div><span>Vistas al mar interior</span><div class="desc">Horizonte abierto desde cada parcela</div></div></li>
+        <li><span class="ico">✦</span><div><span>Caminos interiores</span><div class="desc">Accesos privados de ripio consolidado</div></div></li>
+        <li><span class="ico">✦</span><div><span>Factibilidad de agua</span><div class="desc">Captación y pozo disponible</div></div></li>
+        <li><span class="ico">✦</span><div><span>Factibilidad eléctrica</span><div class="desc">Red en etapa de proyección</div></div></li>
+        <li><span class="ico">✦</span><div><span>Topografía armónica</span><div class="desc">Suaves pendientes que abrazan el paisaje</div></div></li>
+      </ul>
+    </div>
+    <div class="card-a">
+      <span class="superficie-label">Superficie</span>
+      <div class="superficie-value">5.000 – 7.000 m²</div>
+      <ul class="features">
+        <li><span class="ico">✦</span><div><span>Bosque nativo</span><div class="desc">Lenga, coigüe y arrayanes centenarios</div></div></li>
+        <li><span class="ico">✦</span><div><span>Vistas al mar interior</span><div class="desc">Horizonte abierto desde cada parcela</div></div></li>
+        <li><span class="ico">✦</span><div><span>Caminos interiores</span><div class="desc">Accesos privados de ripio consolidado</div></div></li>
+        <li><span class="ico">✦</span><div><span>Factibilidad de agua</span><div class="desc">Captación y pozo disponible</div></div></li>
+        <li><span class="ico">✦</span><div><span>Factibilidad eléctrica</span><div class="desc">Red en etapa de proyección</div></div></li>
+        <li><span class="ico">✦</span><div><span>Topografía armónica</span><div class="desc">Suaves pendientes que abrazan el paisaje</div></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ VARIANTE B: Editorial ═══ -->
+<section class="variant-section" id="b">
+  <div class="variant-label"><span class="dot"></span><strong>B — Editorial</strong> &nbsp; Tipografía serif dominante, grilla de 1px, más aire. Elegancia de revista impresa.</div>
+  <div class="cards-b">
+    <div class="card-b">
+      <span class="num">01</span>
+      <h3>Bosque Norte</h3>
+      <span class="size">5.000 – 7.000 m²</span>
+      <div class="specs">
+        <div class="spec"><span class="key">Orientación</span><span class="val">Noreste, luz matinal</span></div>
+        <div class="spec"><span class="key">Bosque</span><span class="val">Lenga y coigüe centenario</span></div>
+        <div class="spec"><span class="key">Vista</span><span class="val">Mar interior</span></div>
+        <div class="spec"><span class="key">Agua</span><span class="val">Pozo disponible</span></div>
+        <div class="spec"><span class="key">Luz</span><span class="val">En proyección</span></div>
+        <div class="spec"><span class="key">Acceso</span><span class="val">Ripio consolidado</span></div>
+      </div>
+    </div>
+    <div class="card-b">
+      <span class="num">02</span>
+      <h3>Pradera Sur</h3>
+      <span class="size">5.000 – 7.000 m²</span>
+      <div class="specs">
+        <div class="spec"><span class="key">Orientación</span><span class="val">Sur, protegida del viento</span></div>
+        <div class="spec"><span class="key">Bosque</span><span class="val">Arrayanes y tepúes</span></div>
+        <div class="spec"><span class="key">Vista</span><span class="val">Bosque nativo</span></div>
+        <div class="spec"><span class="key">Agua</span><span class="val">Vertiente natural</span></div>
+        <div class="spec"><span class="key">Luz</span><span class="val">En proyección</span></div>
+        <div class="spec"><span class="key">Acceso</span><span class="val">Ripio consolidado</span></div>
+      </div>
+    </div>
+    <div class="card-b">
+      <span class="num">03</span>
+      <h3>Mirador del Este</h3>
+      <span class="size">5.000 – 7.000 m²</span>
+      <div class="specs">
+        <div class="spec"><span class="key">Orientación</span><span class="val">Este, amanecer al mar</span></div>
+        <div class="spec"><span class="key">Bosque</span><span class="val">Coigüe y canelo nativo</span></div>
+        <div class="spec"><span class="key">Vista</span><span class="val">Mar y humedal</span></div>
+        <div class="spec"><span class="key">Agua</span><span class="val">Pozo disponible</span></div>
+        <div class="spec"><span class="key">Luz</span><span class="val">En proyección</span></div>
+        <div class="spec"><span class="key">Acceso</span><span class="val">Ripio consolidado</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ VARIANTE C: Radical ═══ -->
+<section class="variant-section" id="c">
+  <div class="variant-label"><span class="dot"></span><strong>C — Radical</strong> &nbsp; Números grandes, tags, sin cajas. Mínimo absoluto, máxima respiración.</div>
+  <div class="cards-c">
+    <div class="card-c">
+      <div class="m2">5.000–7.000</div>
+      <span class="m2-sub">metros cuadrados</span>
+      <div class="traits">
+        <span class="trait">Bosque nativo</span>
+        <span class="trait">Vista al mar</span>
+        <span class="trait">Acceso privado</span>
+        <span class="trait">Agua</span>
+        <span class="trait">Luz en proyección</span>
+        <span class="trait">Lenga y coigüe</span>
+      </div>
+    </div>
+    <div class="card-c">
+      <div class="m2">5.000–7.000</div>
+      <span class="m2-sub">metros cuadrados</span>
+      <div class="traits">
+        <span class="trait">Pradera abierta</span>
+        <span class="trait">Vista al bosque</span>
+        <span class="trait">Acceso privado</span>
+        <span class="trait">Vertiente</span>
+        <span class="trait">Luz en proyección</span>
+        <span class="trait">Arrayanes</span>
+      </div>
+    </div>
+    <div class="card-c">
+      <div class="m2">5.000–7.000</div>
+      <span class="m2-sub">metros cuadrados</span>
+      <div class="traits">
+        <span class="trait">Bosque nativo</span>
+        <span class="trait">Mar + humedal</span>
+        <span class="trait">Acceso privado</span>
+        <span class="trait">Agua</span>
+        <span class="trait">Luz en proyección</span>
+        <span class="trait">Coigüe y canelo</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

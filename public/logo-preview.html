@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Logo Preview — Proyecto Azafranes</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #050505;
+    color: #f5f0e8;
+    font-family: Georgia, "Times New Roman", serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+
+  .container { max-width: 900px; width: 100%; }
+
+  h1 {
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #5a5550;
+    margin-bottom: 60px;
+    font-weight: 400;
+  }
+
+  /* === Logo Display Grid === */
+  .logo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 80px;
+  }
+  @media (max-width: 600px) {
+    .logo-grid { grid-template-columns: 1fr; gap: 40px; }
+  }
+
+  .logo-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 40px 20px;
+    border: 1px solid rgba(245,240,232,0.06);
+    border-radius: 4px;
+    background: rgba(255,255,255,0.01);
+  }
+
+  .logo-preview .label {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #5a5550;
+    margin-bottom: 8px;
+  }
+
+  /* === The Logo SVG === */
+  .logo-svg-icon { width: 64px; height: 76px; }
+
+  .logo-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .logo-text-col {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+  }
+
+  .logo-text-col .top {
+    font-size: 18px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #f5f0e8;
+  }
+  .logo-text-col .bot {
+    font-size: 18px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.55);
+  }
+
+  .logo-solo-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .logo-solo-icon .big-svg { width: 100px; height: 120px; }
+
+  /* Navbar example */
+  .navbar-demo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    border: 1px solid rgba(245,240,232,0.06);
+    border-radius: 4px;
+    background: rgba(255,255,255,0.01);
+    margin-bottom: 40px;
+  }
+  .navbar-demo .nav-links {
+    display: flex;
+    gap: 28px;
+  }
+  .navbar-demo .nav-links a {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #5a5550;
+    text-decoration: none;
+  }
+
+  /* Hero example */
+  .hero-demo {
+    text-align: center;
+    padding: 80px 20px;
+    border: 1px solid rgba(245,240,232,0.06);
+    border-radius: 4px;
+    background: rgba(255,255,255,0.01);
+  }
+  .hero-demo .hero-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  .hero-demo .hero-logo .hero-svg { width: 80px; height: 96px; }
+  .hero-demo .hero-name {
+    font-size: 22px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.8);
+    font-weight: 300;
+  }
+  .hero-demo .hero-location {
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: #5a5550;
+    margin-top: 4px;
+  }
+  .hero-demo .hero-tagline {
+    font-size: 20px;
+    font-style: italic;
+    color: rgba(245,240,232,0.5);
+    margin-top: 24px;
+  }
+
+  .section-title {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #5a5550;
+    text-align: center;
+    margin: 60px 0 24px;
+  }
+  hr {
+    border: none;
+    border-top: 1px solid rgba(245,240,232,0.06);
+    margin: 40px 0;
+  }
+
+  /* Hover effect demo */
+  .logo-interactive {
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .logo-interactive:hover {
+    opacity: 0.8;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <h1>Identidad Visual — Proyecto Azafranes</h1>
+
+  <!-- Variants Grid -->
+  <div class="logo-grid">
+
+    <!-- Variant: Icon only -->
+    <div class="logo-preview">
+      <div class="label">Icono solo</div>
+      <div class="logo-solo-icon">
+        <svg class="big-svg" viewBox="0 0 100 120" fill="none">
+          <!-- Tilde accent -->
+          <path d="M50 8 L58 28 L42 28 Z" fill="#f5f0e8"/>
+          <!-- A shape -->
+          <path d="M50 40 L12 112 L30 112 L50 76 L70 112 L88 112 L50 40 Z" fill="#f5f0e8"/>
+          <!-- Crossbar -->
+          <rect x="28" y="84" width="44" height="5" rx="2" fill="rgba(245,240,232,0.5)"/>
+        </svg>
+      </div>
+      <span style="font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:#5a5550;">Navbar / Favicon</span>
+    </div>
+
+    <!-- Variant: Full logo -->
+    <div class="logo-preview">
+      <div class="label">Logotipo completo</div>
+      <div class="logo-row">
+        <svg class="logo-svg-icon" viewBox="0 0 100 120" fill="none">
+          <path d="M50 8 L58 28 L42 28 Z" fill="#f5f0e8"/>
+          <path d="M50 40 L12 112 L30 112 L50 76 L70 112 L88 112 L50 40 Z" fill="#f5f0e8"/>
+          <rect x="28" y="84" width="44" height="5" rx="2" fill="rgba(245,240,232,0.5)"/>
+        </svg>
+        <div class="logo-text-col">
+          <span class="top">Proyecto</span>
+          <span class="bot">Azafranes</span>
+        </div>
+      </div>
+      <span style="font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:#5a5550;">Footer / Secciones</span>
+    </div>
+
+    <!-- Variant: Minimal inline -->
+    <div class="logo-preview">
+      <div class="label">Minimal inline</div>
+      <div class="logo-row">
+        <svg class="logo-svg-icon" viewBox="0 0 100 120" fill="none" style="width:40px; height:48px;">
+          <path d="M50 8 L58 28 L42 28 Z" fill="#f5f0e8"/>
+          <path d="M50 40 L12 112 L30 112 L50 76 L70 112 L88 112 L50 40 Z" fill="#f5f0e8"/>
+          <rect x="28" y="84" width="44" height="5" rx="2" fill="rgba(245,240,232,0.5)"/>
+        </svg>
+        <span style="font-size:16px; letter-spacing:0.25em; text-transform:uppercase; color:#f5f0e8;">Azafranes</span>
+      </div>
+      <span style="font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:#5a5550;">Navbar compacto</span>
+    </div>
+
+    <!-- Variant: Hero centerpiece -->
+    <div class="logo-preview">
+      <div class="label">Hero centerpiece</div>
+      <div class="logo-solo-icon">
+        <svg class="big-svg" viewBox="0 0 100 120" fill="none">
+          <path d="M50 8 L58 28 L42 28 Z" fill="#f5f0e8"/>
+          <path d="M50 40 L12 112 L30 112 L50 76 L70 112 L88 112 L50 40 Z" fill="#f5f0e8"/>
+          <rect x="28" y="84" width="44" height="5" rx="2" fill="rgba(245,240,232,0.5)"/>
+        </svg>
+      </div>
+      <span style="font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:#5a5550;">Pantalla completa</span>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- Navbar example -->
+  <div class="section-title">— Navbar preview —</div>
+  <div class="navbar-demo">
+    <div class="logo-row logo-interactive">
+      <svg viewBox="0 0 100 120" fill="none" style="width:28px; height:34px;">
+        <path d="M50 8 L58 28 L42 28 Z" fill="#f5f0e8"/>
+        <path d="M50 40 L12 112 L30 112 L50 76 L70 112 L88 112 L50 40 Z" fill="#f5f0e8"/>
+        <rect x="28" y="84" width="44" height="5" rx="2" fill="rgba(245,240,232,0.5)"/>
+      </svg>
+      <span style="font-size:12px; letter-spacing:0.3em; text-transform:uppercase; color:#f5f0e8; font-family: Georgia, serif;">Proyecto Azafranes</span>
+    </div>
+    <div class="nav-links">
+      <a href="#">Concepto</a>
+      <a href="#">Ubicación</a>
+      <a href="#">Parcelas</a>
+      <a href="#">Contacto</a>
+    </div>
+  </div>
+
+  <!-- Full Hero preview -->
+  <div class="section-title">— Hero preview —</div>
+  <div class="hero-demo">
+    <div class="hero-logo">
+      <svg class="hero-svg" viewBox="0 0 100 120" fill="none">
+        <path d="M50 8 L58 28 L42 28 Z" fill="#f5f0e8" opacity="0.95"/>
+        <path d="M50 40 L12 112 L30 112 L50 76 L70 112 L88 112 L50 40 Z" fill="#f5f0e8" opacity="0.95"/>
+        <rect x="28" y="84" width="44" height="5" rx="2" fill="rgba(245,240,232,0.5)" opacity="0.7"/>
+      </svg>
+      <span class="hero-name">Proyecto Azafranes</span>
+      <span class="hero-location">Chiloé</span>
+      <div class="hero-tagline">Un refugio entre bosque, niebla y mar.</div>
+      <div style="margin-top:24px;">
+        <a href="#" style="display:inline-block; padding:10px 28px; border:1px solid rgba(245,240,232,0.2); font-size:11px; letter-spacing:0.25em; text-transform:uppercase; color:#f5f0e8; text-decoration:none; transition:all 0.3s;">Descubrir el proyecto</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer example -->
+  <div class="section-title">— Footer preview —</div>
+  <div style="border:1px solid rgba(245,240,232,0.06); border-radius:4px; padding:32px 24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+    <div class="logo-row">
+      <svg viewBox="0 0 100 120" fill="none" style="width:32px; height:38px;">
+        <path d="M50 8 L58 28 L42 28 Z" fill="#f5f0e8"/>
+        <path d="M50 40 L12 112 L30 112 L50 76 L70 112 L88 112 L50 40 Z" fill="#f5f0e8"/>
+        <rect x="28" y="84" width="44" height="5" rx="2" fill="rgba(245,240,232,0.5)"/>
+      </svg>
+      <span style="font-size:14px; letter-spacing:0.3em; text-transform:uppercase; color:#f5f0e8; font-family: Georgia, serif;">Proyecto Azafranes</span>
+    </div>
+    <span style="font-size:10px; letter-spacing:0.05em; color:#5a5550;">© 2026 — Todos los derechos reservados</span>
+  </div>
+
+  <hr>
+
+  <div style="text-align:center; color:#5a5550; font-size:10px; margin-top:40px;">
+    Logotipo SVG vectorial — Escalable a cualquier resolución — Sin dependencias externas
+  </div>
+</div>
+</body>
+</html>

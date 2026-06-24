@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Azafranes — Parcelas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #050505;
+      --text: #f5f0e8;
+      --muted: #8a8580;
+      --border: rgba(245,240,232,0.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 32px 16px 60px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    header {
+      padding: 16px 0 28px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 24px;
+    }
+    header .tag {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 6px;
+    }
+    header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: 2rem;
+      letter-spacing: -0.01em;
+    }
+
+    .cards {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--border);
+    }
+
+    .card {
+      background: var(--bg);
+      padding: 36px 20px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .card .num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      color: var(--muted);
+    }
+
+    .card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: 1.8rem;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+    }
+
+    .card .size {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 300;
+    }
+
+    .card .specs {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .spec {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(245,240,232,0.04);
+    }
+    .spec:last-child { border-bottom: none; }
+
+    .spec .key {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      flex-shrink: 0;
+      margin-right: 12px;
+    }
+
+    .spec .val {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.8rem;
+      color: rgba(245,240,232,0.7);
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <span class="tag">Las parcelas</span>
+  <h1>Tres umbrales al sur</h1>
+</header>
+
+<div class="cards">
+  <div class="card">
+    <span class="num">01</span>
+    <h3>Bosque Norte</h3>
+    <span class="size">5.000 – 7.000 m²</span>
+    <div class="specs">
+      <div class="spec"><span class="key">Orientación</span><span class="val">Noreste, luz matinal</span></div>
+      <div class="spec"><span class="key">Bosque</span><span class="val">Lenga y coigüe centenario</span></div>
+      <div class="spec"><span class="key">Vista</span><span class="val">Mar interior</span></div>
+      <div class="spec"><span class="key">Agua</span><span class="val">Pozo disponible</span></div>
+      <div class="spec"><span class="key">Luz</span><span class="val">En proyección</span></div>
+      <div class="spec"><span class="key">Acceso</span><span class="val">Ripio consolidado</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="num">02</span>
+    <h3>Pradera Sur</h3>
+    <span class="size">5.000 – 7.000 m²</span>
+    <div class="specs">
+      <div class="spec"><span class="key">Orientación</span><span class="val">Sur, protegida del viento</span></div>
+      <div class="spec"><span class="key">Bosque</span><span class="val">Arrayanes y tepúes</span></div>
+      <div class="spec"><span class="key">Vista</span><span class="val">Bosque nativo</span></div>
+      <div class="spec"><span class="key">Agua</span><span class="val">Vertiente natural</span></div>
+      <div class="spec"><span class="key">Luz</span><span class="val">En proyección</span></div>
+      <div class="spec"><span class="key">Acceso</span><span class="val">Ripio consolidado</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="num">03</span>
+    <h3>Mirador del Este</h3>
+    <span class="size">5.000 – 7.000 m²</span>
+    <div class="specs">
+      <div class="spec"><span class="key">Orientación</span><span class="val">Este, amanecer al mar</span></div>
+      <div class="spec"><span class="key">Bosque</span><span class="val">Coigüe y canelo nativo</span></div>
+      <div class="spec"><span class="key">Vista</span><span class="val">Mar y humedal</span></div>
+      <div class="spec"><span class="key">Agua</span><span class="val">Pozo disponible</span></div>
+      <div class="spec"><span class="key">Luz</span><span class="val">En proyección</span></div>
+      <div class="spec"><span class="key">Acceso</span><span class="val">Ripio consolidado</span></div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
