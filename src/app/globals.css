@@ -200,3 +200,12 @@ body,
 [class*="font-[var(--font-sans)]"] {
   font-family: "Inter", "Inter Fallback", sans-serif !important;
 }
+
+/* Compass rotate — slow spin for Tour 360° */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@utility animate-spin-slow {
+  animation: spin-slow 6s linear infinite;
+}

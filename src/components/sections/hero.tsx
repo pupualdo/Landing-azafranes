@@ -2,7 +2,6 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowDown } from "lucide-react";
 import { LogoOriginal } from "@/components/logo-original";
 import { Tour360Button } from "@/components/tour-360";
 
@@ -34,7 +33,7 @@ export function HeroSection() {
             className="absolute inset-0 w-full h-full object-cover"
             poster="/assets/hero-bg.mp4?thumb"
           >
-            <source src="/assets/videos/DJI_0678_bg.mp4" type="video/mp4" />
+            <source src="/assets/videos/hero-bg-start15.mp4" type="video/mp4" />
           </video>
         </motion.div>
         <motion.div
@@ -57,22 +56,6 @@ export function HeroSection() {
           <p className="text-base md:text-xl lg:text-2xl font-[var(--font-serif)] font-light italic text-[#f5f0e8]/50 max-w-2xl leading-relaxed tracking-wide" style={{ textShadow: "0 1px 6px rgba(0,0,0,0.7)" }}>
             Un refugio entre bosque, niebla y mar. Parcelas en venta en Chiloé.
           </p>
-        </motion.div>
-
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, ease: [0.77, 0, 0.18, 1], delay: 1.8 }}
-          className="mt-10"
-        >
-          <a
-            href="#concepto"
-            className="group inline-flex items-center gap-3 px-8 py-3 border border-white/15 text-xs tracking-[0.25em] uppercase text-[#f5f0e8]/70 transition-all duration-500 hover:bg-white/5 hover:border-white/30 hover:text-[#f5f0e8]"
-          >
-            Descubrir el proyecto
-            <ArrowDown className="w-3 h-3 group-hover:translate-y-1 transition-transform duration-300" />
-          </a>
         </motion.div>
       </div>
 

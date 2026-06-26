@@ -9,10 +9,10 @@ import { LogoOriginal } from "@/components/logo-original";
 
 const navItems = [
   { label: "Concepto", href: "#concepto" },
-  { label: "Ubicacion", href: "#ubicacion" },
-  { label: "Parcelas", href: "#parcelas" },
   { label: "Experiencia", href: "#experiencia" },
-  { label: "Inversion", href: "#inversion" },
+  { label: "Masterplan", href: "#masterplan" },
+  { label: "Nuestra Historia", href: "#inversion" },
+  { label: "Ubicacion", href: "#ubicacion" },
   { label: "Contacto", href: "#contacto" },
 ];
 

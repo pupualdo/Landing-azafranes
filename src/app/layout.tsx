@@ -26,9 +26,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Parcelas en venta en Chiloé | Terrenos con financiamiento directo | Proyecto Los Azafranes",
+  title: "Parcelas en venta en Chiloé | Terrenos con financiamiento directo | Proyecto Azafranes",
   description:
-    "Parcelas en venta en Chiloé con bosque nativo. Terrenos de 5.000 m² en Dalcahue, con financiamiento directo. Proyecto Los Azafranes: inversión patrimonial en la Isla Grande de Chiloé. Naturaleza intacta, plusvalía sostenida.",
+    "Parcelas en venta en Chiloé con bosque nativo. Terrenos de 5.000 m² en Dalcahue, con financiamiento directo. Proyecto Azafranes: inversión patrimonial en la Isla Grande de Chiloé. Naturaleza intacta, plusvalía sostenida.",
   keywords: [
     "parcelas en venta Chiloé",
     "terrenos en venta Chiloé",
@@ -42,12 +42,12 @@ export const metadata: Metadata = {
     "parcelas cerca de Dalcahue",
     "terrenos Castro Chiloé",
     "terrenos isla de Chiloé",
-    "Proyecto Los Azafranes",
+    "Proyecto Azafranes",
   ],
   openGraph: {
-    title: "Parcelas en venta en Chiloé | Terrenos con financiamiento directo | Proyecto Los Azafranes",
+    title: "Parcelas en venta en Chiloé | Terrenos con financiamiento directo | Proyecto Azafranes",
     description:
-      "Parcelas en venta en Chiloé con bosque nativo. Proyecto Los Azafranes: terrenos de 5.000 m² en Dalcahue, con financiamiento directo. Naturaleza intacta, plusvalía sostenida.",
+      "Parcelas en venta en Chiloé con bosque nativo. Proyecto Azafranes: terrenos de 5.000 m² en Dalcahue, con financiamiento directo. Naturaleza intacta, plusvalía sostenida.",
     locale: "es_CL",
     type: "website",
   },

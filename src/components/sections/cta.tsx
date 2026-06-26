@@ -7,7 +7,43 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { SendHorizonal, Mail, Phone } from "lucide-react";
+
+/* ── Hand-drawn style SVG icons ── */
+
+function HandMail({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className={className} stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+      {/* Envelope body — organic rectangle */}
+      <path d="M3.5 6.5c-.3.5-.5 1-.5 1.8v8c0 1 .3 1.8.8 2.5.6.7 1.3 1.2 2.2 1.5.8.3 1.7.4 2.5.4h7c.8 0 1.7-.1 2.5-.4.9-.3 1.6-.8 2.2-1.5.5-.7.8-1.5.8-2.5v-8c0-.7-.2-1.3-.5-1.8" />
+      {/* Flap */}
+      <path d="M3.5 6.5l6.8 5.8c1 .8 2.4.8 3.4 0l6.8-5.8" />
+      {/* Bottom edge */}
+      <path d="M3.5 18.5l5-4.5M20.5 18.5l-5-4.5" strokeWidth=".9" opacity=".4" />
+    </svg>
+  );
+}
+
+function HandPhone({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className={className} stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+      {/* Handset shape */}
+      <path d="M6.5 3.5c-.8.2-1.5.6-2 1.2-.5.6-.8 1.3-.8 2 0 .8.2 1.5.5 2.3.3.7.7 1.5 1.2 2.3.5.8 1.2 1.5 1.8 2.2.6.7 1.3 1.3 2 1.8.7.5 1.5.9 2.2 1.2.8.3 1.5.5 2.3.5.7 0 1.4-.3 2-.8.6-.5 1-1.2 1.2-2" />
+      {/* Curly cord */}
+      <path d="M6.5 3.5c-.5 1-.8 2.5-1 4.5-.2 2-.2 4 0 6 .2 2 .5 3.5 1 4.5" strokeWidth=".9" opacity=".5" />
+    </svg>
+  );
+}
+
+function HandSend({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className={className} stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+      {/* Paper plane — organic triangle */}
+      <path d="M21 3c-.3.2-.8.4-1.3.7l-15 7.5c-.7.4-1.2.8-1.5 1.2-.3.4-.4.8-.3 1 .1.3.4.5.8.6.5.1 1.2.1 2 0l5.8-1.2c.4 0 .7.2.8.5l2.2 7.2c.1.5.1 1 0 1.4 0 .5-.1.8-.4 1-.2.2-.4.2-.7 0-.3-.2-.6-.6-.9-1.2l-3-6.5" />
+      {/* Motion lines */}
+      <path d="M14 10l4.5-4.5M16.5 11.5l3.5-3.5" strokeWidth=".9" opacity=".35" />
+    </svg>
+  );
+}
 
 export function CtaSection() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -56,18 +92,6 @@ export function CtaSection() {
               &ldquo;Hay lugares que no se explican.{" "}
               <span className="text-[#f5f0e8]/80">Se viven.</span>&rdquo;
             </p>
-          </FadeIn>
-
-          <FadeIn direction="up" delay={0.25}>
-            <a href="#formulario">
-              <Button
-                size="lg"
-                className="font-[var(--font-sans)] text-sm tracking-[0.15em] uppercase h-11 px-8 rounded-lg border border-[#f5f0e8]/20 bg-transparent text-[#f5f0e8] hover:bg-[#f5f0e8] hover:text-[#050505] transition-all duration-500"
-              >
-                Solicitar informaci&oacute;n
-                <SendHorizonal className="size-4 ml-2" />
-              </Button>
-            </a>
           </FadeIn>
         </div>
 
@@ -197,11 +221,21 @@ export function CtaSection() {
                     ) : (
                       <span className="flex items-center gap-2">
                         Enviar mensaje
-                        <SendHorizonal className="size-4" />
+                        <HandSend className="size-4" />
                       </span>
                     )}
                   </Button>
                 </div>
+
+                {/* TyC link */}
+                <p className="text-center pt-3">
+                  <a
+                    href="/terminos-y-condiciones"
+                    className="font-[var(--font-sans)] text-[11px] tracking-[0.05em] text-[#5a5550] hover:text-[#8a8580] underline underline-offset-4 transition-colors duration-300"
+                  >
+                    Al enviar aceptas nuestros T&eacute;rminos y Condiciones
+                  </a>
+                </p>
               </form>
             </FadeIn>
           </div>
@@ -225,7 +259,7 @@ export function CtaSection() {
                 {/* Email */}
                 <div className="space-y-2">
                   <p className="font-[var(--font-sans)] text-xs tracking-[0.15em] uppercase text-[#8a8580] flex items-center gap-2">
-                    <Mail className="size-3.5" />
+                    <HandMail className="size-3.5" />
                     Email
                   </p>
                   <a
@@ -236,23 +270,50 @@ export function CtaSection() {
                   </a>
                 </div>
 
-                {/* Phone */}
+                {/* Phones */}
                 <div className="space-y-2">
                   <p className="font-[var(--font-sans)] text-xs tracking-[0.15em] uppercase text-[#8a8580] flex items-center gap-2">
-                    <Phone className="size-3.5" />
-                    Tel&eacute;fono
+                    <HandPhone className="size-3.5" />
+                    Tel&eacute;fonos
                   </p>
-                  <a
-                    href="tel:+56982657527"
-                    className="font-[var(--font-serif)] text-base md:text-lg text-[#f5f0e8] hover:text-[#f5f0e8]/70 transition-colors duration-300"
-                  >
-                    +56 9 8265 7527
-                  </a>
+                  <div className="space-y-1.5">
+                    <a
+                      href="tel:+56982657527"
+                      className="block font-[var(--font-serif)] text-base md:text-lg text-[#f5f0e8] hover:text-[#f5f0e8]/70 transition-colors duration-300"
+                    >
+                      +56 9 8265 7527
+                    </a>
+                    <a
+                      href="tel:+56994456176"
+                      className="block font-[var(--font-serif)] text-base md:text-lg text-[#f5f0e8] hover:text-[#f5f0e8]/70 transition-colors duration-300"
+                    >
+                      +56 9 9445 6176
+                    </a>
+                    <a
+                      href="tel:+56994406865"
+                      className="block font-[var(--font-serif)] text-base md:text-lg text-[#f5f0e8] hover:text-[#f5f0e8]/70 transition-colors duration-300"
+                    >
+                      +56 9 9440 6865
+                    </a>
+                  </div>
                 </div>
 
                 {/* Subtle decorative text */}
                 <p className="font-[var(--font-serif)] text-sm italic text-[#8a8580]/60 pt-4">
                   Chilo&eacute;, Chile &mdash; Donde el sur encuentra su voz.
+                </p>
+
+                {/* Latitudes Australes credit — linked */}
+                <p className="font-[var(--font-sans)] text-xs tracking-[0.05em] text-[#8a8580]/60 pt-3">
+                  Un proyecto de{" "}
+                  <a
+                    href="https://www.latitudesaustrales.cl"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#8a8580] hover:text-[#f5f0e8]/70 underline underline-offset-4 transition-colors duration-300"
+                  >
+                    Latitudes Australes
+                  </a>
                 </p>
               </div>
             </FadeIn>

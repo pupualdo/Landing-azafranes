@@ -15,10 +15,10 @@ const gallery = [
   { src: "/assets/photos/galeria/af_06.jpg", alt: "Humedal y turberas: el paisaje vivo de la Isla Grande", aspect: "3 / 4" },
   { src: "/assets/photos/galeria/af_08.jpg", alt: "Cielo azul sobre el dosel del bosque de Chiloé", aspect: "4 / 5" },
   { src: "/assets/photos/galeria/af_09.jpg", alt: "Copas de árboles y nubes: la inmensidad del sur desde tierra", aspect: "1 / 1" },
-  { src: "/assets/photos/galeria/af_10.jpg", alt: "Eucaliptos y claros de luz: diversidad del terreno Proyecto Los Azafranes", aspect: "3 / 2" },
+  { src: "/assets/photos/galeria/af_10.jpg", alt: "Eucaliptos y claros de luz: diversidad del terreno Proyecto Azafranes", aspect: "3 / 2" },
   { src: "/assets/photos/galeria/af_11.jpg", alt: "Linde del bosque con cielo abierto: parcelas con vista en Chiloé", aspect: "9 / 16" },
   { src: "/assets/photos/galeria/af_12.jpg", alt: "Sendero entre líquenes y musgo: el suelo vivo del bosque sur", aspect: "4 / 3" },
-  { src: "/assets/photos/galeria/af_14.jpg", alt: "Camino natural entre parcelas: acceso y privacidad en Proyecto Los Azafranes", aspect: "1 / 1" },
+  { src: "/assets/photos/galeria/af_14.jpg", alt: "Camino natural entre parcelas: acceso y privacidad en Proyecto Azafranes", aspect: "1 / 1" },
 ];
 
 // ─── Component ────────────────────────────────────────────────────────────────
@@ -37,7 +37,7 @@ export function GaleriaSection() {
           <div className="text-center space-y-4">
             <FadeIn direction="up" delay={0.1}>
               <span className="inline-block text-xs tracking-[0.3em] uppercase text-[#8a8580] font-[var(--font-sans)]">
-Proyecto Los Azafranes
+Proyecto Azafranes
               </span>
             </FadeIn>
             <FadeIn direction="up" delay={0.2}>

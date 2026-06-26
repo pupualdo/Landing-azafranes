@@ -53,7 +53,7 @@ export function ConceptoSection() {
                 <p className="font-[var(--font-serif)] text-base md:text-lg leading-relaxed text-[#f5f0e8]/80">
                   En el coraz&oacute;n de la Isla Grande de Chilo&eacute;, donde
                   se impone un bosque ancestral nativo rodeado de matices de
-                  verdes intensos, nace Proyecto Los Azafranes. Veintis&eacute;is
+                  verdes intensos, nace Proyecto Azafranes. Cuarenta y nueve
                   hect&aacute;reas de parcelas en venta en Chiloé que no se domestican, se habitan. Un paisaje
                   de ensue&ntilde;o donde compartir en familia otra bella puesta
                   de sol en la parcela propia.
@@ -88,7 +88,7 @@ export function ConceptoSection() {
               <div className="grid grid-cols-3 gap-6 pt-6 md:pt-8 border-t border-[#f5f0e8]/10">
                 <div className="space-y-1">
                   <p className="font-[var(--font-heading)] text-2xl md:text-3xl text-[#f5f0e8]">
-                    26
+                    49
                   </p>
                   <p className="text-xs tracking-[0.15em] uppercase text-[#8a8580] font-[var(--font-sans)]">
                     Hect&aacute;reas
@@ -96,7 +96,7 @@ export function ConceptoSection() {
                 </div>
                 <div className="space-y-1">
                   <p className="font-[var(--font-heading)] text-2xl md:text-3xl text-[#f5f0e8]">
-                    75
+                    72
                   </p>
                   <p className="text-xs tracking-[0.15em] uppercase text-[#8a8580] font-[var(--font-sans)]">
                     Parcelas

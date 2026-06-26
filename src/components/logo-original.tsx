@@ -50,7 +50,7 @@ export function LogoOriginal({
   if (variant === "footer") {
     return (
       <motion.div
-        className={cn("flex items-center", className)}
+        className={cn("flex items-center justify-center", className)}
         {...(animated
           ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.8 } }
           : {})}
@@ -58,9 +58,9 @@ export function LogoOriginal({
         <Image
           src="/logo-azafranes-transparente.png"
           alt="Proyecto Azafranes"
-          width={160}
-          height={60}
-          className="h-12 w-auto object-contain"
+          width={300}
+          height={120}
+          className="h-20 md:h-24 w-auto object-contain"
           unoptimized
         />
       </motion.div>

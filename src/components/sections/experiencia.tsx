@@ -15,7 +15,7 @@ const panels = [
   {
     id: "niebla",
     image:
-      "/assets/photos/closeups/closeup_05_contraluz.jpg",
+      "/assets/photos/closeups/closeup_niebla.jpg",
     label: "02",
     subtitle: "Mañanas con niebla",
     text: "El mundo se desdibuja entre vapores. No hay prisa donde la bruma esculpe el horizonte.",
@@ -23,7 +23,7 @@ const panels = [
   {
     id: "fuego",
     image:
-      "/assets/photos/closeups/closeup_04_liquenes.jpg",
+      "/assets/photos/closeups/closeup_fuego.jpg",
     label: "03",
     subtitle: "Fuego y madera",
     text: "La lumbre baila contra la noche austral. La madera cruje historias que el viento no olvida.",
@@ -31,7 +31,7 @@ const panels = [
   {
     id: "mar",
     image:
-      "/assets/photos/closeups/closeup_03_cielo.jpg",
+      "/assets/photos/closeups/closeup_mar_aves.jpg",
     label: "04",
     subtitle: "Mar y aves",
     text: "El mar respira al ritmo de las gaviotas. Más allá de la orilla, solo existe el azul infinito.",
@@ -39,7 +39,7 @@ const panels = [
   {
     id: "silencio",
     image:
-      "/assets/photos/closeups/closeup_06_copas.jpg",
+      "/assets/photos/closeups/closeup_silencio.jpg",
     label: "05",
     subtitle: "Silencio profundo",
     text: "Aquí el tiempo se detiene. No hay eco que no sea el latido de la tierra misma.",
@@ -85,8 +85,24 @@ function Panel({
         }}
       />
 
-      {/* Dark overlay - stronger for text readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/85 via-[#050505]/45 to-[#050505]/85" />
+      {/* Dark overlay — multi-stop vignette: pure black edge → quick ramp to 85% vignette → bright center → back to black */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: `linear-gradient(
+            to bottom,
+            #050505 0%,
+            rgba(5,5,5,0.88) 4%,
+            rgba(5,5,5,0.60) 12%,
+            rgba(5,5,5,0.35) 25%,
+            rgba(5,5,5,0.25) 50%,
+            rgba(5,5,5,0.35) 75%,
+            rgba(5,5,5,0.60) 88%,
+            rgba(5,5,5,0.88) 96%,
+            #050505 100%
+          )`,
+        }}
+      />
       <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/50 via-transparent to-[#050505]/50" />
 
       {/* Content */}
@@ -186,7 +202,22 @@ export function ExperienciaSection() {
               "url('/assets/photos/closeups/closeup_02_helechos.jpg')",
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/80 via-[#050505]/50 to-[#050505]" />
+        <div
+          className="absolute inset-0"
+          style={{
+            background: `linear-gradient(
+              to bottom,
+              rgba(5,5,5,0.85) 0%,
+              rgba(5,5,5,0.55) 15%,
+              rgba(5,5,5,0.30) 35%,
+              rgba(5,5,5,0.22) 55%,
+              rgba(5,5,5,0.35) 72%,
+              rgba(5,5,5,0.60) 86%,
+              rgba(5,5,5,0.88) 96%,
+              #050505 100%
+            )`,
+          }}
+        />
 
         {/* Title */}
         <motion.div
@@ -208,8 +239,6 @@ export function ExperienciaSection() {
           </p>
         </motion.div>
 
-        {/* Gradient fade at bottom */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#050505] to-transparent z-10" />
       </div>
 
       {/* Cinematic panels */}
@@ -226,9 +255,9 @@ export function ExperienciaSection() {
           transition={{ duration: 1.2, ease: [0.77, 0, 0.18, 1] }}
           className="text-center px-6"
         >
-          <div className="w-px h-12 bg-gradient-to-b from-[#f5f0e8]/20 to-transparent mx-auto mb-8" />
-          <p className="font-[var(--font-serif)] text-lg md:text-xl italic text-[#8a8580]/60 max-w-md mx-auto">
-            Proyecto Los Azafranes — un legado de silencio y naturaleza.
+          <div className="w-px h-16 bg-gradient-to-b from-[#f5f0e8]/40 to-transparent mx-auto mb-8" />
+          <p className="font-[var(--font-serif)] text-xl md:text-3xl italic text-[#f5f0e8]/50 max-w-xl mx-auto leading-relaxed">
+            Proyecto Azafranes — un legado de silencio y naturaleza.
           </p>
         </motion.div>
       </div>
