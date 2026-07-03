@@ -68,9 +68,6 @@ export function MasterplanSection() {
                 privacidad absoluta. Terrenos con acceso directo desde la ruta 5 sur en Chiloé. Desde all&iacute;, los senderos se
                 despliegan como ramas de un &aacute;rbol, llevando a cada
                 parcela sin alterar el suelo m&aacute;s de lo necesario.
-                El norte magn&eacute;tico orienta las visuales: todas las
-                parcelas miran al bosque, al humedal o al mar interior de
-                Chilo&eacute;.
               </p>
             </FadeIn>
           </div>
