@@ -62,7 +62,7 @@ export function ConceptoSection() {
 
               <FadeIn direction="up" delay={0.5}>
                 <p className="font-[var(--font-serif)] text-base md:text-lg leading-relaxed text-[#f5f0e8]/80">
-                  Setenta y cinco terrenos en venta en Chiloé, cada uno distinto. Cada una ha sido
+                  Setenta y cinco terrenos en venta en Chiloé, cada uno distinto. Cada parcela ha sido
                   trazada respetando la topograf&iacute;a original. El proyecto
                   cuenta con caminos de ripio que permiten el acceso directo a
                   cada parcela en veh&iacute;culo. La arquitectura se integra
