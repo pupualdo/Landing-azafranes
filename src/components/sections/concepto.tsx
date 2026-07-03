@@ -75,7 +75,7 @@ export function ConceptoSection() {
                 <p className="font-[var(--font-serif)] text-base md:text-lg leading-relaxed text-[#f5f0e8]/80">
                   Aqu&iacute; el tiempo se mide en estaciones, no en horas.
                   Canelo, array&aacute;n, coihue, ulmo y lenga custodian el
-                  silencio. Zorzales, bandurrias, loros y pud&uacute;es habitan
+                  silencio. Chucaos, bandurrias, loros y pud&uacute;es habitan
                   el sotobosque. Comprar terreno en Chiloé de bosque nativo protector no es adquirir tierra: es
                   resguardar un patrimonio de aire limpio, de vida lenta, de
                   naturaleza intacta.
