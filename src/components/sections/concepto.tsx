@@ -112,6 +112,24 @@ export function ConceptoSection() {
                 </div>
               </div>
             </FadeIn>
+
+            {/* Párrafo descriptivo — debajo de los stats */}
+            <FadeIn direction="up" delay={0.75}>
+              <div className="pt-8 md:pt-10 space-y-4">
+                <p className="font-[var(--font-serif)] text-base md:text-lg leading-relaxed text-[#f5f0e8]/80">
+                  En Azafranes, el bosque nativo de Chiloé no es el paisaje de
+                  fondo, es el proyecto mismo. 72 parcelas de 5.000 m² trazadas
+                  entre árboles y naturaleza, a pocos minutos de Dalcahue y con
+                  acceso directo desde la Ruta 5 Sur. Cada terreno llega con
+                  título propio, caminos interiores y hay posibilidad de
+                  financiamiento directo: sin bancos, sin intermediarios.
+                </p>
+                <p className="font-[var(--font-serif)] text-lg md:text-xl italic text-[#f5f0e8]/70 leading-relaxed">
+                  Una oportunidad de adquirir tierra en la Isla Grande de Chiloé
+                  antes de que deje de estar disponible.
+                </p>
+              </div>
+            </FadeIn>
           </div>
 
           {/* Decorative image column — parallax */}
