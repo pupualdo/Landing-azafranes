@@ -1,0 +1,8 @@
+<svg viewBox="0 0 140 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Tilde (´) flotante -->
+  <path d="M70 10 L82 38 L58 38 Z" fill="#f5f0e8"/>
+  <!-- Brazo izquierdo de la A -->
+  <path d="M72 40 Q70 38 68 40 L28 130 Q24 138 22 144 Q20 150 22 154 Q24 158 28 160 Q32 161 36 159 L72 94 L108 159 Q112 161 116 160 Q120 158 122 154 Q124 150 122 144 Q120 138 116 130 L76 48 Q74 44 72 40 Z" fill="#f5f0e8"/>
+  <!-- Barra transversal -->
+  <path d="M40 116 Q48 112 60 110 Q72 108 84 110 Q96 112 104 116 Q100 120 88 122 Q76 124 64 123 Q52 122 42 119 Z" fill="#f5f0e8" opacity="0.5"/>
+</svg>
