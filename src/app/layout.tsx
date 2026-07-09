@@ -64,7 +64,9 @@ export default function RootLayout({
       className={`${imFell.variable} ${cormorant.variable} ${inter.variable} h-full antialiased dark`}
     >
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
       </head>
       <body className="min-h-full flex flex-col bg-[#050505] text-[#f5f0e8]">
         <Navbar />
