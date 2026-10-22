@@ -72,6 +72,10 @@ export function CtaSection() {
         "Gracias por tu interés. Te responderemos a la brevedad.",
     });
 
+    // Evento form_submit_ok (envío confirmado, sin datos personales)
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: "form_submit_ok" });
+
     setFormData({ nombre: "", email: "", telefono: "", mensaje: "" });
     setIsSubmitting(false);
   };

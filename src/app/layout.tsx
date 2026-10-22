@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { IM_Fell_English, Cormorant_Garamond, Inter } from "next/font/google";
+import { GoogleTagManager } from "@next/third-parties/google";
 import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { WhatsAppButton } from "@/components/whatsapp-button";
+import { GTMDataLayerEvents } from "@/components/gtm-data-layer-events";
 import { Toaster } from "@/components/ui/sonner";
 
 const imFell = IM_Fell_English({
@@ -63,11 +65,13 @@ export default function RootLayout({
       lang="es"
       className={`${imFell.variable} ${cormorant.variable} ${inter.variable} h-full antialiased dark`}
     >
+      <GoogleTagManager gtmId="GTM-PTZZPTNL" />
       <head>
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
       </head>
       <body className="min-h-full flex flex-col bg-[#050505] text-[#f5f0e8]">
+        <GTMDataLayerEvents />
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
