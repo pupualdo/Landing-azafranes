@@ -64,20 +64,38 @@ export function CtaSection() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate a send — replace with real API call
-    await new Promise((resolve) => setTimeout(resolve, 1200));
+    try {
+      const res = await fetch("/api/contacto", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const result = await res.json();
 
-    toast.success("Mensaje enviado con éxito", {
-      description:
-        "Gracias por tu interés. Te responderemos a la brevedad.",
-    });
+      if (result.success) {
+        // Evento form_submit_ok (envío confirmado, sin datos personales)
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: "form_submit_ok" });
 
-    // Evento form_submit_ok (envío confirmado, sin datos personales)
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ event: "form_submit_ok" });
+        toast.success("Mensaje enviado con éxito", {
+          description:
+            "Gracias por tu interés. Te responderemos a la brevedad.",
+        });
 
-    setFormData({ nombre: "", email: "", telefono: "", mensaje: "" });
-    setIsSubmitting(false);
+        setFormData({ nombre: "", email: "", telefono: "", mensaje: "" });
+      } else {
+        toast.error("No se pudo enviar el mensaje", {
+          description:
+            "Intenta de nuevo o escríbenos a contacto@proyectoazafranes.cl.",
+        });
+      }
+    } catch {
+      toast.error("No se pudo enviar el mensaje", {
+        description: "Revisa tu conexión e intenta de nuevo.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -267,10 +285,10 @@ export function CtaSection() {
                     Email
                   </p>
                   <a
-                    href="mailto:info@proyectoazafranes.cl"
+                    href="mailto:contacto@proyectoazafranes.cl"
                     className="font-[var(--font-serif)] text-base md:text-lg text-[#f5f0e8] hover:text-[#f5f0e8]/70 transition-colors duration-300"
                   >
-                    info@proyectoazafranes.cl
+                    contacto@proyectoazafranes.cl
                   </a>
                 </div>
 
