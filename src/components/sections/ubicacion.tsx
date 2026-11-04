@@ -44,7 +44,7 @@ const ubicacion = [
     icon: HandGlobe,
     title: "Proyección del loteo",
     description: "Vista satelital del predio completo con la distribución de las 72 parcelas.",
-    href: "https://google.com/maps/@-42.231881,-73.6748725,2230m/data=!3m2!1e3!4b1!4m2!6m1!1s17BhbcnOJMuk83Fq03Oxg5DoUVouWkcI?entry=ttu&g_ep=EgoyMDI2MDYyMS4wIKXMDSoASAFQAw%3D%3D",
+    href: "https://www.google.com/maps/@-42.231881,-73.6748725,2008m/data=!3m2!1e3!4b1!4m2!6m1!1s17BhbcnOJMuk83Fq03Oxg5DoUVouWkcI?entry=ttu&g_ep=EgoyMDI2MTEwMS4wIKXMDSoASAFQAw%3D%3D",
     cta: "Explorar loteo",
   },
 ];
